@@ -7,8 +7,11 @@
 //
 
 #import "CaseMemoAppDelegate.h"
-
 #import "RootViewController.h"
+#import "FDCOAuthViewController.h"
+#import "FDCServerSwitchboard.h"
+
+#define kSFOAuthConsumerKey @"3MVG9y6x0357HleejikYgTgKSQy7Ba8e7zCk_NwT6fye_OKUEmRjgZxgZ8OQCywvuw7WaW_g5VAJpijHWt9kC"
 
 @implementation CaseMemoAppDelegate
 
@@ -21,14 +24,40 @@
 
 @synthesize detailViewController=_detailViewController;
 
+@synthesize oAuthViewController=_oAuthViewController;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-    // Add the split view controller's view to the window and display.
+    [[FDCServerSwitchboard switchboard] setClientId:kSFOAuthConsumerKey];
+    self.oAuthViewController = [[FDCOAuthViewController alloc] initWithTarget:self selector:@selector(loginOAuth:error:) clientId:kSFOAuthConsumerKey];
+
     self.window.rootViewController = self.splitViewController;
     [self.window makeKeyAndVisible];
+
+    self.oAuthViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self.window.rootViewController presentModalViewController:self.oAuthViewController animated:YES];
+
     return YES;
 }
+
+- (void)loginOAuth:(FDCOAuthViewController *)oAuthViewController error:(NSError *)error
+{
+    if ([oAuthViewController accessToken] && !error)
+    {
+        NSLog(@"Hey, we logged in!");
+        [[FDCServerSwitchboard switchboard] setClientId:kSFOAuthConsumerKey];
+        [[FDCServerSwitchboard switchboard] setApiUrlFromOAuthInstanceUrl:[oAuthViewController instanceUrl]];
+        [[FDCServerSwitchboard switchboard] setSessionId:[oAuthViewController accessToken]];
+        [[FDCServerSwitchboard switchboard] setOAuthRefreshToken:[oAuthViewController refreshToken]];
+    	[self.splitViewController dismissModalViewControllerAnimated:YES];
+        [self.oAuthViewController autorelease];
+    }
+    else if (error)
+    {
+        NSLog(@"An error occurred while trying to login.");
+    }
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

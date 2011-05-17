@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FDCOAuthViewController.h"
 
 @class RootViewController;
 
 @class DetailViewController;
 
 @interface CaseMemoAppDelegate : NSObject <UIApplicationDelegate> {
-
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
@@ -23,5 +23,7 @@
 @property (nonatomic, retain) IBOutlet RootViewController *rootViewController;
 
 @property (nonatomic, retain) IBOutlet DetailViewController *detailViewController;
+
+@property (nonatomic, retain) IBOutlet FDCOAuthViewController *oAuthViewController;
 
 @end
