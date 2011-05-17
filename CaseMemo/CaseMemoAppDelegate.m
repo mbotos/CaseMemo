@@ -91,7 +91,6 @@
 {
     [[FDCServerSwitchboard switchboard] setClientId:kSFOAuthConsumerKey];
     GenericPassword *genericPassword = [[GenericPassword alloc] initWithLabel:KeychainLabel accessGroup:nil];
-    NSLog(@"Existing token: %@", genericPassword.password);
     BOOL hasOAuthToken = genericPassword.password != @"";
     
     if (hasOAuthToken) {
