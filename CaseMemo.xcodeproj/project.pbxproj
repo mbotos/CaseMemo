@@ -1,0 +1,294 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		34CA2DAE1382B79F00EA1420 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34CA2DAD1382B79F00EA1420 /* UIKit.framework */; };
+		34CA2DB01382B79F00EA1420 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34CA2DAF1382B79F00EA1420 /* Foundation.framework */; };
+		34CA2DB21382B79F00EA1420 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34CA2DB11382B79F00EA1420 /* CoreGraphics.framework */; };
+		34CA2DB81382B79F00EA1420 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34CA2DB61382B79F00EA1420 /* InfoPlist.strings */; };
+		34CA2DBB1382B79F00EA1420 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CA2DBA1382B79F00EA1420 /* main.m */; };
+		34CA2DBE1382B79F00EA1420 /* CaseMemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CA2DBD1382B79F00EA1420 /* CaseMemoAppDelegate.m */; };
+		34CA2DC11382B79F00EA1420 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34CA2DBF1382B79F00EA1420 /* MainWindow.xib */; };
+		34CA2DC41382B79F00EA1420 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CA2DC31382B79F00EA1420 /* DetailViewController.m */; };
+		34CA2DC71382B79F00EA1420 /* DetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34CA2DC51382B79F00EA1420 /* DetailView.xib */; };
+		34CA2DCA1382B79F00EA1420 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CA2DC91382B79F00EA1420 /* RootViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		34CA2DA91382B79F00EA1420 /* CaseMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaseMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		34CA2DAD1382B79F00EA1420 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		34CA2DAF1382B79F00EA1420 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		34CA2DB11382B79F00EA1420 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		34CA2DB51382B79F00EA1420 /* CaseMemo-Info.plist */ = {isa = PBXFileReference; path = "CaseMemo-Info.plist"; sourceTree = "<group>"; };
+		34CA2DB71382B79F00EA1420 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		34CA2DB91382B79F00EA1420 /* CaseMemo-Prefix.pch */ = {isa = PBXFileReference; path = "CaseMemo-Prefix.pch"; sourceTree = "<group>"; };
+		34CA2DBA1382B79F00EA1420 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		34CA2DBC1382B79F00EA1420 /* CaseMemoAppDelegate.h */ = {isa = PBXFileReference; path = CaseMemoAppDelegate.h; sourceTree = "<group>"; };
+		34CA2DBD1382B79F00EA1420 /* CaseMemoAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CaseMemoAppDelegate.m; sourceTree = "<group>"; };
+		34CA2DC01382B79F00EA1420 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		34CA2DC21382B79F00EA1420 /* DetailViewController.h */ = {isa = PBXFileReference; path = DetailViewController.h; sourceTree = "<group>"; };
+		34CA2DC31382B79F00EA1420 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		34CA2DC61382B79F00EA1420 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DetailView.xib; sourceTree = "<group>"; };
+		34CA2DC81382B79F00EA1420 /* RootViewController.h */ = {isa = PBXFileReference; path = RootViewController.h; sourceTree = "<group>"; };
+		34CA2DC91382B79F00EA1420 /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		34CA2DA61382B79F00EA1420 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34CA2DAE1382B79F00EA1420 /* UIKit.framework in Frameworks */,
+				34CA2DB01382B79F00EA1420 /* Foundation.framework in Frameworks */,
+				34CA2DB21382B79F00EA1420 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		34CA2D9E1382B79F00EA1420 = {
+			isa = PBXGroup;
+			children = (
+				34CA2DB31382B79F00EA1420 /* CaseMemo */,
+				34CA2DAC1382B79F00EA1420 /* Frameworks */,
+				34CA2DAA1382B79F00EA1420 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		34CA2DAA1382B79F00EA1420 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				34CA2DA91382B79F00EA1420 /* CaseMemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		34CA2DAC1382B79F00EA1420 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				34CA2DAD1382B79F00EA1420 /* UIKit.framework */,
+				34CA2DAF1382B79F00EA1420 /* Foundation.framework */,
+				34CA2DB11382B79F00EA1420 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		34CA2DB31382B79F00EA1420 /* CaseMemo */ = {
+			isa = PBXGroup;
+			children = (
+				34CA2DBC1382B79F00EA1420 /* CaseMemoAppDelegate.h */,
+				34CA2DBD1382B79F00EA1420 /* CaseMemoAppDelegate.m */,
+				34CA2DBF1382B79F00EA1420 /* MainWindow.xib */,
+				34CA2DC21382B79F00EA1420 /* DetailViewController.h */,
+				34CA2DC31382B79F00EA1420 /* DetailViewController.m */,
+				34CA2DC51382B79F00EA1420 /* DetailView.xib */,
+				34CA2DC81382B79F00EA1420 /* RootViewController.h */,
+				34CA2DC91382B79F00EA1420 /* RootViewController.m */,
+				34CA2DB41382B79F00EA1420 /* Supporting Files */,
+			);
+			path = CaseMemo;
+			sourceTree = "<group>";
+		};
+		34CA2DB41382B79F00EA1420 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				34CA2DB51382B79F00EA1420 /* CaseMemo-Info.plist */,
+				34CA2DB61382B79F00EA1420 /* InfoPlist.strings */,
+				34CA2DB91382B79F00EA1420 /* CaseMemo-Prefix.pch */,
+				34CA2DBA1382B79F00EA1420 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		34CA2DA81382B79F00EA1420 /* CaseMemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34CA2DCD1382B79F00EA1420 /* Build configuration list for PBXNativeTarget "CaseMemo" */;
+			buildPhases = (
+				34CA2DA51382B79F00EA1420 /* Sources */,
+				34CA2DA61382B79F00EA1420 /* Frameworks */,
+				34CA2DA71382B79F00EA1420 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CaseMemo;
+			productName = CaseMemo;
+			productReference = 34CA2DA91382B79F00EA1420 /* CaseMemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		34CA2DA01382B79F00EA1420 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Mavens Consulting, Inc";
+			};
+			buildConfigurationList = 34CA2DA31382B79F00EA1420 /* Build configuration list for PBXProject "CaseMemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 34CA2D9E1382B79F00EA1420;
+			productRefGroup = 34CA2DAA1382B79F00EA1420 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				34CA2DA81382B79F00EA1420 /* CaseMemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		34CA2DA71382B79F00EA1420 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34CA2DB81382B79F00EA1420 /* InfoPlist.strings in Resources */,
+				34CA2DC11382B79F00EA1420 /* MainWindow.xib in Resources */,
+				34CA2DC71382B79F00EA1420 /* DetailView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		34CA2DA51382B79F00EA1420 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34CA2DBB1382B79F00EA1420 /* main.m in Sources */,
+				34CA2DBE1382B79F00EA1420 /* CaseMemoAppDelegate.m in Sources */,
+				34CA2DC41382B79F00EA1420 /* DetailViewController.m in Sources */,
+				34CA2DCA1382B79F00EA1420 /* RootViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		34CA2DB61382B79F00EA1420 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				34CA2DB71382B79F00EA1420 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		34CA2DBF1382B79F00EA1420 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				34CA2DC01382B79F00EA1420 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		34CA2DC51382B79F00EA1420 /* DetailView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				34CA2DC61382B79F00EA1420 /* en */,
+			);
+			name = DetailView.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		34CA2DCB1382B79F00EA1420 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		34CA2DCC1382B79F00EA1420 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		34CA2DCE1382B79F00EA1420 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CaseMemo/CaseMemo-Prefix.pch";
+				INFOPLIST_FILE = "CaseMemo/CaseMemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		34CA2DCF1382B79F00EA1420 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CaseMemo/CaseMemo-Prefix.pch";
+				INFOPLIST_FILE = "CaseMemo/CaseMemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		34CA2DA31382B79F00EA1420 /* Build configuration list for PBXProject "CaseMemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34CA2DCB1382B79F00EA1420 /* Debug */,
+				34CA2DCC1382B79F00EA1420 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		34CA2DCD1382B79F00EA1420 /* Build configuration list for PBXNativeTarget "CaseMemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34CA2DCE1382B79F00EA1420 /* Debug */,
+				34CA2DCF1382B79F00EA1420 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 34CA2DA01382B79F00EA1420 /* Project object */;
+}
