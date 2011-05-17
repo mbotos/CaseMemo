@@ -11,10 +11,12 @@
 @class DetailViewController;
 
 @interface RootViewController : UITableViewController {
-
 }
 
 		
 @property (nonatomic, retain) IBOutlet DetailViewController *detailViewController;
+@property (nonatomic, retain) NSMutableArray *dataRows;
+
+- (void) loadData;
 
 @end

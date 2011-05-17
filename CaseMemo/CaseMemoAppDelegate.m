@@ -26,19 +26,26 @@
 
 @synthesize oAuthViewController=_oAuthViewController;
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    [[FDCServerSwitchboard switchboard] setClientId:kSFOAuthConsumerKey];
-    self.oAuthViewController = [[FDCOAuthViewController alloc] initWithTarget:self selector:@selector(loginOAuth:error:) clientId:kSFOAuthConsumerKey];
+#pragma mark -
+#pragma mark Error Handling
 
-    self.window.rootViewController = self.splitViewController;
-    [self.window makeKeyAndVisible];
-
-    self.oAuthViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-    [self.window.rootViewController presentModalViewController:self.oAuthViewController animated:YES];
-
-    return YES;
++ (void)error:(NSException*)exception {
+	[self errorWithMessage:[exception reason]];
 }
+
++ (void)errorWithError:(NSError*)error {
+	[self errorWithMessage:[NSString stringWithFormat:@"%@", error]];
+}
+
++ (void)errorWithMessage:(NSString*)message {
+	NSLog(@"Error: %@", message);
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	[alert show];
+	[alert release];
+}
+
+#pragma mark -
+#pragma mark App
 
 - (void)loginOAuth:(FDCOAuthViewController *)oAuthViewController error:(NSError *)error
 {
@@ -49,15 +56,34 @@
         [[FDCServerSwitchboard switchboard] setApiUrlFromOAuthInstanceUrl:[oAuthViewController instanceUrl]];
         [[FDCServerSwitchboard switchboard] setSessionId:[oAuthViewController accessToken]];
         [[FDCServerSwitchboard switchboard] setOAuthRefreshToken:[oAuthViewController refreshToken]];
+        
     	[self.splitViewController dismissModalViewControllerAnimated:YES];
         [self.oAuthViewController autorelease];
+        
+        [self.rootViewController loadData];
     }
     else if (error)
     {
-        NSLog(@"An error occurred while trying to login.");
+        [CaseMemoAppDelegate errorWithError:error];
     }
 }
 
+#pragma mark -
+#pragma AppDelegate
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [[FDCServerSwitchboard switchboard] setClientId:kSFOAuthConsumerKey];
+    self.oAuthViewController = [[FDCOAuthViewController alloc] initWithTarget:self selector:@selector(loginOAuth:error:) clientId:kSFOAuthConsumerKey];
+    
+    self.window.rootViewController = self.splitViewController;
+    [self.window makeKeyAndVisible];
+
+    self.oAuthViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self.window.rootViewController presentModalViewController:self.oAuthViewController animated:YES];
+
+    return YES;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

@@ -9,10 +9,33 @@
 #import "RootViewController.h"
 
 #import "DetailViewController.h"
+#import "FDCServerSwitchboard.h"
+#import "ZKSforce.h"
+#import "CaseMemoAppDelegate.h"
 
 @implementation RootViewController
 		
 @synthesize detailViewController;
+@synthesize dataRows;
+
+- (void) loadData {
+    NSString *queryString = @"Select Id, CaseNumber, Subject, Description From Case";
+    [[FDCServerSwitchboard switchboard] query:queryString target:self selector:@selector(queryResult:error:context:) context:nil];
+}
+
+- (void)queryResult:(ZKQueryResult *)result error:(NSError *)error context:(id)context
+{
+    //NSLog(@"queryResult:%@ eror:%@ context:%@", result, error, context);
+    if (result && !error)
+    {
+        self.dataRows = [NSMutableArray arrayWithArray:[result records]];
+        [self.tableView reloadData];
+    }
+    else if (error)
+    {
+        [CaseMemoAppDelegate errorWithError:error];
+    }
+}
 
 - (void)viewDidLoad
 {
@@ -55,7 +78,7 @@
 		
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return [dataRows count];
     		
 }
 
@@ -69,7 +92,8 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
 
-    // Configure the cell.
+	ZKSObject *obj = [dataRows objectAtIndex:indexPath.row];
+	cell.textLabel.text = [obj fieldValue:@"Subject"];
     		
     return cell;
 }
@@ -134,6 +158,7 @@
 
 - (void)dealloc
 {
+    [dataRows release];
     [detailViewController release];
     [super dealloc];
 }

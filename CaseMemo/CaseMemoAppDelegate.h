@@ -26,4 +26,8 @@
 
 @property (nonatomic, retain) IBOutlet FDCOAuthViewController *oAuthViewController;
 
++ (void)error:(NSException*)exception;
++ (void)errorWithError:(NSError*)error;
++ (void)errorWithMessage:(NSString*)message;
+
 @end
