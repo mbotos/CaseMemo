@@ -10,8 +10,10 @@
 #import "RootViewController.h"
 #import "FDCOAuthViewController.h"
 #import "FDCServerSwitchboard.h"
+#import "GenericPassword.h"
 
 #define kSFOAuthConsumerKey @"3MVG9y6x0357HleejikYgTgKSQy7Ba8e7zCk_NwT6fye_OKUEmRjgZxgZ8OQCywvuw7WaW_g5VAJpijHWt9kC"
+#define KeychainLabel @"OAuthRefreshToken"
 
 @implementation CaseMemoAppDelegate
 
@@ -47,11 +49,24 @@
 #pragma mark -
 #pragma mark App
 
+- (void) saveOAuthData: (FDCOAuthViewController *)oAuthViewController  {
+    GenericPassword *genericPassword = [[GenericPassword alloc] initWithLabel:KeychainLabel accessGroup:nil];
+    genericPassword.password = [oAuthViewController refreshToken];
+    genericPassword.service = [oAuthViewController instanceUrl];
+    
+    NSError *error = nil;
+    [genericPassword writeToKeychain:&error];
+    if (error != nil) {
+        NSLog(@"Error: %@", error);
+        [CaseMemoAppDelegate errorWithError:error];
+    }
+}
+
 - (void)loginOAuth:(FDCOAuthViewController *)oAuthViewController error:(NSError *)error
 {
     if ([oAuthViewController accessToken] && !error)
     {
-        NSLog(@"Hey, we logged in!");
+        NSLog(@"Logged in to Salesforce");
         [[FDCServerSwitchboard switchboard] setClientId:kSFOAuthConsumerKey];
         [[FDCServerSwitchboard switchboard] setApiUrlFromOAuthInstanceUrl:[oAuthViewController instanceUrl]];
         [[FDCServerSwitchboard switchboard] setSessionId:[oAuthViewController accessToken]];
@@ -60,6 +75,7 @@
     	[self.splitViewController dismissModalViewControllerAnimated:YES];
         [self.oAuthViewController autorelease];
         
+        [self saveOAuthData: oAuthViewController];
         [self.rootViewController loadData];
     }
     else if (error)
@@ -74,13 +90,26 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[FDCServerSwitchboard switchboard] setClientId:kSFOAuthConsumerKey];
-    self.oAuthViewController = [[FDCOAuthViewController alloc] initWithTarget:self selector:@selector(loginOAuth:error:) clientId:kSFOAuthConsumerKey];
+    GenericPassword *genericPassword = [[GenericPassword alloc] initWithLabel:KeychainLabel accessGroup:nil];
+    NSLog(@"Existing token: %@", genericPassword.password);
+    BOOL hasOAuthToken = genericPassword.password != @"";
+    
+    if (hasOAuthToken) {
+        [[FDCServerSwitchboard switchboard] setOAuthRefreshToken:genericPassword.password];        
+        [[FDCServerSwitchboard switchboard] setApiUrlFromOAuthInstanceUrl:genericPassword.service];        
+        [self.rootViewController loadData];
+    } else {
+        self.oAuthViewController = [[FDCOAuthViewController alloc] initWithTarget:self selector:@selector(loginOAuth:error:) clientId:kSFOAuthConsumerKey];
+        self.oAuthViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+    }
     
     self.window.rootViewController = self.splitViewController;
     [self.window makeKeyAndVisible];
-
-    self.oAuthViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-    [self.window.rootViewController presentModalViewController:self.oAuthViewController animated:YES];
+    
+    // must occur after window is visible
+    if (!hasOAuthToken) {
+        [self.window.rootViewController presentModalViewController:self.oAuthViewController animated:YES];        
+    }
 
     return YES;
 }

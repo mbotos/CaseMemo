@@ -158,6 +158,10 @@ static FDCServerSwitchboard * sharedSwitchboard =  nil;
     {
     // Reschedule a new timer
         _oAuthRefreshTimer = [[NSTimer scheduledTimerWithTimeInterval:MAX_SESSION_AGE target:self selector:@selector(_oauthRefreshAccessToken:) userInfo:nil repeats:YES] retain];
+        
+        if(!sessionId) {
+            [self _oauthRefreshAccessToken:nil];
+        }
     }
 }
 

@@ -60,6 +60,16 @@
 		34CA2E511382B7EA00EA1420 /* ZKSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CA2E241382B7EA00EA1420 /* ZKSObject.m */; };
 		34CA2E521382B7EA00EA1420 /* ZKUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CA2E261382B7EA00EA1420 /* ZKUserInfo.m */; };
 		34CA2E531382B7EA00EA1420 /* ZKXmlDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CA2E281382B7EA00EA1420 /* ZKXmlDeserializer.m */; };
+		34CA2E6C1382E18800EA1420 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34CA2E6B1382E18800EA1420 /* Security.framework */; };
+		34CA2E831383022700EA1420 /* Certificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CA2E741383022700EA1420 /* Certificate.m */; };
+		34CA2E841383022700EA1420 /* GenericPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CA2E761383022700EA1420 /* GenericPassword.m */; };
+		34CA2E851383022700EA1420 /* Identity.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CA2E781383022700EA1420 /* Identity.m */; };
+		34CA2E861383022700EA1420 /* InternetPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CA2E7A1383022700EA1420 /* InternetPassword.m */; };
+		34CA2E871383022700EA1420 /* Key.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CA2E7C1383022700EA1420 /* Key.m */; };
+		34CA2E881383022700EA1420 /* KeychainItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CA2E7E1383022700EA1420 /* KeychainItem.m */; };
+		34CA2E891383022700EA1420 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 34CA2E801383022700EA1420 /* LICENSE */; };
+		34CA2E8A1383022700EA1420 /* Password.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CA2E821383022700EA1420 /* Password.m */; };
+		34CA2E8C1383024000EA1420 /* license in Resources */ = {isa = PBXBuildFile; fileRef = 34CA2E8B1383024000EA1420 /* license */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -167,6 +177,24 @@
 		34CA2E261382B7EA00EA1420 /* ZKUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKUserInfo.m; sourceTree = "<group>"; };
 		34CA2E271382B7EA00EA1420 /* ZKXmlDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKXmlDeserializer.h; sourceTree = "<group>"; };
 		34CA2E281382B7EA00EA1420 /* ZKXmlDeserializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKXmlDeserializer.m; sourceTree = "<group>"; };
+		34CA2E6B1382E18800EA1420 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		34CA2E731383022700EA1420 /* Certificate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Certificate.h; path = ObjectiveKeychain/Certificate.h; sourceTree = "<group>"; };
+		34CA2E741383022700EA1420 /* Certificate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Certificate.m; path = ObjectiveKeychain/Certificate.m; sourceTree = "<group>"; };
+		34CA2E751383022700EA1420 /* GenericPassword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GenericPassword.h; path = ObjectiveKeychain/GenericPassword.h; sourceTree = "<group>"; };
+		34CA2E761383022700EA1420 /* GenericPassword.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GenericPassword.m; path = ObjectiveKeychain/GenericPassword.m; sourceTree = "<group>"; };
+		34CA2E771383022700EA1420 /* Identity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Identity.h; path = ObjectiveKeychain/Identity.h; sourceTree = "<group>"; };
+		34CA2E781383022700EA1420 /* Identity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Identity.m; path = ObjectiveKeychain/Identity.m; sourceTree = "<group>"; };
+		34CA2E791383022700EA1420 /* InternetPassword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InternetPassword.h; path = ObjectiveKeychain/InternetPassword.h; sourceTree = "<group>"; };
+		34CA2E7A1383022700EA1420 /* InternetPassword.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InternetPassword.m; path = ObjectiveKeychain/InternetPassword.m; sourceTree = "<group>"; };
+		34CA2E7B1383022700EA1420 /* Key.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Key.h; path = ObjectiveKeychain/Key.h; sourceTree = "<group>"; };
+		34CA2E7C1383022700EA1420 /* Key.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Key.m; path = ObjectiveKeychain/Key.m; sourceTree = "<group>"; };
+		34CA2E7D1383022700EA1420 /* KeychainItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainItem.h; path = ObjectiveKeychain/KeychainItem.h; sourceTree = "<group>"; };
+		34CA2E7E1383022700EA1420 /* KeychainItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeychainItem.m; path = ObjectiveKeychain/KeychainItem.m; sourceTree = "<group>"; };
+		34CA2E7F1383022700EA1420 /* KeychainItemSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainItemSubclass.h; path = ObjectiveKeychain/KeychainItemSubclass.h; sourceTree = "<group>"; };
+		34CA2E801383022700EA1420 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ObjectiveKeychain/LICENSE; sourceTree = "<group>"; };
+		34CA2E811383022700EA1420 /* Password.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Password.h; path = ObjectiveKeychain/Password.h; sourceTree = "<group>"; };
+		34CA2E821383022700EA1420 /* Password.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Password.m; path = ObjectiveKeychain/Password.m; sourceTree = "<group>"; };
+		34CA2E8B1383024000EA1420 /* license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +202,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34CA2E6C1382E18800EA1420 /* Security.framework in Frameworks */,
 				34CA2DAE1382B79F00EA1420 /* UIKit.framework in Frameworks */,
 				34CA2DB01382B79F00EA1420 /* Foundation.framework in Frameworks */,
 				34CA2DB21382B79F00EA1420 /* CoreGraphics.framework in Frameworks */,
@@ -203,6 +232,7 @@
 		34CA2DAC1382B79F00EA1420 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34CA2E6B1382E18800EA1420 /* Security.framework */,
 				34CA2DAD1382B79F00EA1420 /* UIKit.framework */,
 				34CA2DAF1382B79F00EA1420 /* Foundation.framework */,
 				34CA2DB11382B79F00EA1420 /* CoreGraphics.framework */,
@@ -213,6 +243,7 @@
 		34CA2DB31382B79F00EA1420 /* CaseMemo */ = {
 			isa = PBXGroup;
 			children = (
+				34CA2E541382DF0500EA1420 /* ObjectiveKeychain */,
 				34CA2DD01382B7EA00EA1420 /* ZKSforce */,
 				34CA2DBC1382B79F00EA1420 /* CaseMemoAppDelegate.h */,
 				34CA2DBD1382B79F00EA1420 /* CaseMemoAppDelegate.m */,
@@ -241,6 +272,7 @@
 		34CA2DD01382B7EA00EA1420 /* ZKSforce */ = {
 			isa = PBXGroup;
 			children = (
+				34CA2E8B1383024000EA1420 /* license */,
 				34CA2DD11382B7EA00EA1420 /* FDCDeletedObject.h */,
 				34CA2DD21382B7EA00EA1420 /* FDCDeletedObject.m */,
 				34CA2DD31382B7EA00EA1420 /* FDCEmailMessage.h */,
@@ -333,6 +365,29 @@
 			path = ZKSforce;
 			sourceTree = "<group>";
 		};
+		34CA2E541382DF0500EA1420 /* ObjectiveKeychain */ = {
+			isa = PBXGroup;
+			children = (
+				34CA2E731383022700EA1420 /* Certificate.h */,
+				34CA2E741383022700EA1420 /* Certificate.m */,
+				34CA2E751383022700EA1420 /* GenericPassword.h */,
+				34CA2E761383022700EA1420 /* GenericPassword.m */,
+				34CA2E771383022700EA1420 /* Identity.h */,
+				34CA2E781383022700EA1420 /* Identity.m */,
+				34CA2E791383022700EA1420 /* InternetPassword.h */,
+				34CA2E7A1383022700EA1420 /* InternetPassword.m */,
+				34CA2E7B1383022700EA1420 /* Key.h */,
+				34CA2E7C1383022700EA1420 /* Key.m */,
+				34CA2E7D1383022700EA1420 /* KeychainItem.h */,
+				34CA2E7E1383022700EA1420 /* KeychainItem.m */,
+				34CA2E7F1383022700EA1420 /* KeychainItemSubclass.h */,
+				34CA2E801383022700EA1420 /* LICENSE */,
+				34CA2E811383022700EA1420 /* Password.h */,
+				34CA2E821383022700EA1420 /* Password.m */,
+			);
+			name = ObjectiveKeychain;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -386,6 +441,8 @@
 				34CA2DB81382B79F00EA1420 /* InfoPlist.strings in Resources */,
 				34CA2DC11382B79F00EA1420 /* MainWindow.xib in Resources */,
 				34CA2DC71382B79F00EA1420 /* DetailView.xib in Resources */,
+				34CA2E891383022700EA1420 /* LICENSE in Resources */,
+				34CA2E8C1383024000EA1420 /* license in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +500,13 @@
 				34CA2E511382B7EA00EA1420 /* ZKSObject.m in Sources */,
 				34CA2E521382B7EA00EA1420 /* ZKUserInfo.m in Sources */,
 				34CA2E531382B7EA00EA1420 /* ZKXmlDeserializer.m in Sources */,
+				34CA2E831383022700EA1420 /* Certificate.m in Sources */,
+				34CA2E841383022700EA1420 /* GenericPassword.m in Sources */,
+				34CA2E851383022700EA1420 /* Identity.m in Sources */,
+				34CA2E861383022700EA1420 /* InternetPassword.m in Sources */,
+				34CA2E871383022700EA1420 /* Key.m in Sources */,
+				34CA2E881383022700EA1420 /* KeychainItem.m in Sources */,
+				34CA2E8A1383022700EA1420 /* Password.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
