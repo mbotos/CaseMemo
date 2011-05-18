@@ -25,11 +25,14 @@
 
 - (void)queryResult:(ZKQueryResult *)result error:(NSError *)error context:(id)context
 {
-    //NSLog(@"queryResult:%@ eror:%@ context:%@", result, error, context);
     if (result && !error)
     {
         self.dataRows = [NSMutableArray arrayWithArray:[result records]];
         [self.tableView reloadData];
+        
+        if ([self.dataRows count] > 0) {
+            [detailViewController setDetailItem:[dataRows objectAtIndex:0]];
+        }
     }
     else if (error)
     {

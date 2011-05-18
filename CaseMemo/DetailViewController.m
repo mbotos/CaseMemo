@@ -22,7 +22,6 @@
 
 @synthesize detailItem=_detailItem;
 
-@synthesize detailDescriptionLabel=_detailDescriptionLabel;
 @synthesize numberLabel = _numberLabel;
 @synthesize subjectLabel = _subjectLabel;
 @synthesize descriptionLabel = _descriptionLabel;
@@ -50,19 +49,13 @@
 }
 
 - (void)configureView
-{
-    [self.detailDescriptionLabel removeFromSuperview];
-    
+{    
     // cast to ZKSObject to avoid warnings
     ZKSObject *caseSobject = (ZKSObject*)self.detailItem;
     
     self.numberLabel.text = [NSString stringWithFormat:@"Case Number %@", [caseSobject fieldValue:@"CaseNumber"]];
     self.subjectLabel.text = [caseSobject fieldValue:@"Subject"];
     self.descriptionLabel.text = [caseSobject fieldValue:@"Description"];
-
-    [self.view addSubview:self.numberLabel];
-    [self.view addSubview:self.subjectLabel];
-    [self.view addSubview:self.descriptionLabel];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -73,10 +66,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    [self.numberLabel removeFromSuperview];
-    [self.subjectLabel removeFromSuperview];
-    [self.descriptionLabel removeFromSuperview];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -150,7 +139,6 @@
     [_myPopoverController release];
     [_toolbar release];
     [_detailItem release];
-    [_detailDescriptionLabel release];
     [_numberLabel release];
     [_subjectLabel release];
     [_descriptionLabel release];

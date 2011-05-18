@@ -20,7 +20,6 @@
 
 @property (nonatomic, retain) id detailItem;
 
-@property (nonatomic, retain) IBOutlet UILabel *detailDescriptionLabel;
 @property (nonatomic, retain) IBOutlet UILabel *numberLabel;
 @property (nonatomic, retain) IBOutlet UILabel *subjectLabel;
 @property (nonatomic, retain) IBOutlet UILabel *descriptionLabel;
