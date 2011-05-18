@@ -65,6 +65,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    self.subjectLabel.numberOfLines = 2;
     [super viewDidAppear:animated];
 }
 
