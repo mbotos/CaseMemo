@@ -10,6 +10,8 @@
 
 #import "RootViewController.h"
 #import "ZKSObject.h"
+#import "FDCServerSwitchboard.h"
+#import "CaseMemoAppDelegate.h"
 
 @interface DetailViewController ()
 @property (nonatomic, retain) UIPopoverController *popoverController;
@@ -21,10 +23,12 @@
 @synthesize toolbar=_toolbar;
 
 @synthesize detailItem=_detailItem;
+@synthesize attachments=_attachments;
 
 @synthesize numberLabel = _numberLabel;
 @synthesize subjectLabel = _subjectLabel;
 @synthesize descriptionLabel = _descriptionLabel;
+@synthesize attachmentsTable = _attachmentsTable;
 
 @synthesize popoverController=_myPopoverController;
 
@@ -39,13 +43,29 @@
         [_detailItem release];
         _detailItem = [newDetailItem retain];
         
-        // Update the view.
+        
+        NSString *queryString = [NSString stringWithFormat:@"Select Id, Name From Attachment Where ParentId = '%@'", [(ZKSObject*)_detailItem fieldValue:@"Id"]];
+        [[FDCServerSwitchboard switchboard] query:queryString target:self selector:@selector(queryResult:error:context:) context:nil];
+    
         [self configureView];
     }
 
     if (self.popoverController != nil) {
         [self.popoverController dismissPopoverAnimated:YES];
     }        
+}
+
+- (void)queryResult:(ZKQueryResult *)result error:(NSError *)error context:(id)context
+{
+    if (result && !error)
+    {
+        self.attachments = [result records];
+        [self.attachmentsTable reloadData];
+    }
+    else if (error)
+    {
+        [CaseMemoAppDelegate errorWithError:error];
+    }
 }
 
 - (void)configureView
@@ -105,24 +125,57 @@
     self.popoverController = nil;
 }
 
-/*
+#pragma mark - View load/unload
+
  // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.attachmentsTable.backgroundView = [[[UIImageView alloc] init] autorelease];
 }
- */
 
 - (void)viewDidUnload
 {
     [self setNumberLabel:nil];
     [self setSubjectLabel:nil];
     [self setDescriptionLabel:nil];
+    [self setAttachmentsTable:nil];
 	[super viewDidUnload];
 
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
 	self.popoverController = nil;
+}
+
+#pragma mark - Attachments table data
+
+- (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Attachments cellForRowAtIndexPath %d", indexPath.row);
+    
+    static NSString *CellIndentifer = @"AttachmentCell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifer];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifer] autorelease];
+    }
+    
+    ZKSObject *attachment = [self.attachments objectAtIndex:indexPath.row];
+    cell.textLabel.text = [attachment fieldValue:@"Name"];
+    
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [self.attachments count] > 0 ? 1 : 0;
+}
+
+- (int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSLog(@"Attachments numberOfRowsInSection %d", [self.attachments count]);
+    return [self.attachments count];
+}
+
+- (NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @"Attachments";
 }
 
 #pragma mark - Memory management
@@ -143,6 +196,7 @@
     [_numberLabel release];
     [_subjectLabel release];
     [_descriptionLabel release];
+    [_attachmentsTable release];
     [super dealloc];
 }
 

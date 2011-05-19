@@ -8,20 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DetailViewController : UIViewController <UIPopoverControllerDelegate, UISplitViewControllerDelegate> {
+@interface DetailViewController : UIViewController <UIPopoverControllerDelegate, UISplitViewControllerDelegate, UITableViewDelegate, UITableViewDataSource> {
 
     UILabel *_numberLabel;
     UILabel *_subjectLabel;
     UILabel *_descriptionLabel;
+    UITableView *_attachmentsTable;
 }
 
 
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
 
 @property (nonatomic, retain) id detailItem;
+@property (nonatomic, retain) NSArray *attachments;
 
 @property (nonatomic, retain) IBOutlet UILabel *numberLabel;
 @property (nonatomic, retain) IBOutlet UILabel *subjectLabel;
 @property (nonatomic, retain) IBOutlet UILabel *descriptionLabel;
+
+@property (nonatomic, retain) IBOutlet UITableView *attachmentsTable;
 
 @end
