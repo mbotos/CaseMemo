@@ -19,7 +19,7 @@
 @synthesize dataRows;
 
 - (void) loadData {
-    NSString *queryString = @"Select Id, CaseNumber, Subject, Description From Case";
+    NSString *queryString = @"Select Id, CaseNumber, Subject, Description, Attachment_Count__c From Case";
     [[FDCServerSwitchboard switchboard] query:queryString target:self selector:@selector(queryResult:error:context:) context:nil];
 }
 

@@ -12,6 +12,7 @@
 #import "ZKSObject.h"
 #import "FDCServerSwitchboard.h"
 #import "CaseMemoAppDelegate.h"
+#import "MBProgressHUD.h"
 
 @interface DetailViewController ()
 @property (nonatomic, retain) UIPopoverController *popoverController;
@@ -29,6 +30,8 @@
 @synthesize subjectLabel = _subjectLabel;
 @synthesize descriptionLabel = _descriptionLabel;
 @synthesize attachmentsTable = _attachmentsTable;
+@synthesize attachmentsLoadingIndicator = _attachmentsLoadingIndicator;
+@synthesize attachmentsHeaderView = _attachmentsHeaderView;
 
 @synthesize popoverController=_myPopoverController;
 
@@ -43,9 +46,15 @@
         [_detailItem release];
         _detailItem = [newDetailItem retain];
         
+        [self.attachments removeAllObjects];
         
-        NSString *queryString = [NSString stringWithFormat:@"Select Id, Name From Attachment Where ParentId = '%@'", [(ZKSObject*)_detailItem fieldValue:@"Id"]];
-        [[FDCServerSwitchboard switchboard] query:queryString target:self selector:@selector(queryResult:error:context:) context:nil];
+        if ([self.detailItem intValue:@"Attachment_Count__c"] > 0) {
+            NSString *queryString = [NSString stringWithFormat:@"Select Id, Name From Attachment Where ParentId = '%@'", [self.detailItem fieldValue:@"Id"]];
+            [[FDCServerSwitchboard switchboard] query:queryString target:self selector:@selector(queryResult:error:context:) context:nil];
+            showAttachmentsHeader = YES;
+        } else {
+            showAttachmentsHeader = NO;            
+        }
     
         [self configureView];
     }
@@ -59,8 +68,9 @@
 {
     if (result && !error)
     {
-        self.attachments = [result records];
+        self.attachments = [[result records] mutableCopy];
         [self.attachmentsTable reloadData];
+        [self.attachmentsLoadingIndicator stopAnimating];
     }
     else if (error)
     {
@@ -70,12 +80,17 @@
 
 - (void)configureView
 {    
-    // cast to ZKSObject to avoid warnings
-    ZKSObject *caseSobject = (ZKSObject*)self.detailItem;
+    self.numberLabel.text = [NSString stringWithFormat:@"Case Number %@", [self.detailItem fieldValue:@"CaseNumber"]];
+    self.subjectLabel.text = [self.detailItem fieldValue:@"Subject"];
+    self.descriptionLabel.text = [self.detailItem fieldValue:@"Description"];
+
+    [self.attachmentsTable reloadData];
+
+    if (showAttachmentsHeader) {
+        [self.attachmentsLoadingIndicator startAnimating];
+    }
     
-    self.numberLabel.text = [NSString stringWithFormat:@"Case Number %@", [caseSobject fieldValue:@"CaseNumber"]];
-    self.subjectLabel.text = [caseSobject fieldValue:@"Subject"];
-    self.descriptionLabel.text = [caseSobject fieldValue:@"Description"];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -131,7 +146,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSBundle mainBundle] loadNibNamed:@"DetailViewAttachmentsHeader" owner:self options:nil];
+    
+    self.numberLabel.text = nil;
+    self.subjectLabel.text = nil;
+    self.descriptionLabel.text = nil;
+    
     self.attachmentsTable.backgroundView = [[[UIImageView alloc] init] autorelease];
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
 
 - (void)viewDidUnload
@@ -140,6 +163,7 @@
     [self setSubjectLabel:nil];
     [self setDescriptionLabel:nil];
     [self setAttachmentsTable:nil];
+    [self setAttachmentsHeaderView:nil];
 	[super viewDidUnload];
 
 	// Release any retained subviews of the main view.
@@ -150,8 +174,6 @@
 #pragma mark - Attachments table data
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Attachments cellForRowAtIndexPath %d", indexPath.row);
-    
     static NSString *CellIndentifer = @"AttachmentCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifer];
@@ -166,16 +188,21 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.attachments count] > 0 ? 1 : 0;
+    return showAttachmentsHeader ? 1 : 0;
 }
 
 - (int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"Attachments numberOfRowsInSection %d", [self.attachments count]);
     return [self.attachments count];
 }
 
-- (NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"Attachments";
+#pragma mark - Attachments table
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 24.0f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    return self.attachmentsHeaderView;
 }
 
 #pragma mark - Memory management
@@ -197,6 +224,8 @@
     [_subjectLabel release];
     [_descriptionLabel release];
     [_attachmentsTable release];
+    [_attachmentsLoadingIndicator release];
+    [_attachmentsHeaderView release];
     [super dealloc];
 }
 

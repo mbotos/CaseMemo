@@ -14,18 +14,23 @@
     UILabel *_subjectLabel;
     UILabel *_descriptionLabel;
     UITableView *_attachmentsTable;
+    BOOL showAttachmentsHeader;
+    UIView *_attachmentsHeaderView;
 }
 
 
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
 
 @property (nonatomic, retain) id detailItem;
-@property (nonatomic, retain) NSArray *attachments;
+@property (nonatomic, retain) NSMutableArray *attachments;
 
 @property (nonatomic, retain) IBOutlet UILabel *numberLabel;
 @property (nonatomic, retain) IBOutlet UILabel *subjectLabel;
 @property (nonatomic, retain) IBOutlet UILabel *descriptionLabel;
 
 @property (nonatomic, retain) IBOutlet UITableView *attachmentsTable;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *attachmentsLoadingIndicator;
+@property (nonatomic, retain) IBOutlet UIView *attachmentsHeaderView;
+
 
 @end
