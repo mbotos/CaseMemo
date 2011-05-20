@@ -12,8 +12,11 @@
 #import "FDCServerSwitchboard.h"
 #import "GenericPassword.h"
 
+// STEP 1 a - Consumer Key from Salesforce Setup > Develop > Remote Access
 #define kSFOAuthConsumerKey @"3MVG9y6x0357HleejikYgTgKSQy7Ba8e7zCk_NwT6fye_OKUEmRjgZxgZ8OQCywvuw7WaW_g5VAJpijHWt9kC"
-#define KeychainLabel @"OAuthRefreshToken"
+
+// STEP 3 a - Keychain label to save OAuth token
+#define OAuthKeychainLabel @"OAuthRefreshToken"
 
 @implementation CaseMemoAppDelegate
 
@@ -49,19 +52,7 @@
 #pragma mark -
 #pragma mark App
 
-- (void) saveOAuthData: (FDCOAuthViewController *)oAuthViewController  {
-    GenericPassword *genericPassword = [[GenericPassword alloc] initWithLabel:KeychainLabel accessGroup:nil];
-    genericPassword.password = [oAuthViewController refreshToken];
-    genericPassword.service = [oAuthViewController instanceUrl];
-    
-    NSError *error = nil;
-    [genericPassword writeToKeychain:&error];
-    if (error != nil) {
-        NSLog(@"Error: %@", error);
-        [CaseMemoAppDelegate errorWithError:error];
-    }
-}
-
+// STEP 1 c - Handle OAuth login callback
 - (void)loginOAuth:(FDCOAuthViewController *)oAuthViewController error:(NSError *)error
 {
     if ([oAuthViewController accessToken] && !error)
@@ -75,11 +66,28 @@
     	[self.splitViewController dismissModalViewControllerAnimated:YES];
         [self.oAuthViewController autorelease];
         
+        // STEP 3 b - Save OAuth data after login
         [self saveOAuthData: oAuthViewController];
+        
+        // STEP 2 a - Load data after login
         [self.rootViewController loadData];
     }
     else if (error)
     {
+        [CaseMemoAppDelegate errorWithError:error];
+    }
+}
+
+// STEP 3 c - Save OAuth data to Keychain
+- (void) saveOAuthData: (FDCOAuthViewController *)oAuthViewController  {
+    GenericPassword *genericPassword = [[GenericPassword alloc] initWithLabel:OAuthKeychainLabel accessGroup:nil];
+    genericPassword.password = [oAuthViewController refreshToken];
+    genericPassword.service = [oAuthViewController instanceUrl];
+    
+    NSError *error = nil;
+    [genericPassword writeToKeychain:&error];
+    if (error != nil) {
+        NSLog(@"Error: %@", error);
         [CaseMemoAppDelegate errorWithError:error];
     }
 }
@@ -90,7 +98,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[FDCServerSwitchboard switchboard] setClientId:kSFOAuthConsumerKey];
-    GenericPassword *genericPassword = [[GenericPassword alloc] initWithLabel:KeychainLabel accessGroup:nil];
+    
+    // STEP 3 d - Retrieve OAuth data from Keychain
+    GenericPassword *genericPassword = [[GenericPassword alloc] initWithLabel:OAuthKeychainLabel accessGroup:nil];
     BOOL hasOAuthToken = genericPassword.password != @"";
     
     if (hasOAuthToken) {
@@ -98,6 +108,7 @@
         [[FDCServerSwitchboard switchboard] setApiUrlFromOAuthInstanceUrl:genericPassword.service];        
         [self.rootViewController loadData];
     } else {
+        // STEP 1 b - Show OAuth login
         self.oAuthViewController = [[FDCOAuthViewController alloc] initWithTarget:self selector:@selector(loginOAuth:error:) clientId:kSFOAuthConsumerKey];
         self.oAuthViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     }
