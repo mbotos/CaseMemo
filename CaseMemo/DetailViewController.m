@@ -50,12 +50,10 @@
 
 - (void)configureView
 {    
-    // cast to ZKSObject to avoid warnings
-    ZKSObject *caseSobject = (ZKSObject*)self.detailItem;
-    
-    self.numberLabel.text = [NSString stringWithFormat:@"Case Number %@", [caseSobject fieldValue:@"CaseNumber"]];
-    self.subjectLabel.text = [caseSobject fieldValue:@"Subject"];
-    self.descriptionLabel.text = [caseSobject fieldValue:@"Description"];
+    // STEP 4 b - Assign data to layout
+    self.numberLabel.text = [NSString stringWithFormat:@"Case Number %@", [self.detailItem fieldValue:@"CaseNumber"]];
+    self.subjectLabel.text = [self.detailItem fieldValue:@"Subject"];
+    self.descriptionLabel.text = [self.detailItem fieldValue:@"Description"];
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -139,6 +139,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // STEP 4 c - Wire selection to pass data to detail view
     [detailViewController setDetailItem:[dataRows objectAtIndex:indexPath.row]];
 }
 
