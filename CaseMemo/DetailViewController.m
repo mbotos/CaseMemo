@@ -80,7 +80,7 @@
 
 - (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController: (UIPopoverController *)pc
 {
-    // STEP 2 e - Change pop over button name
+    // STEP 2 e - Change pop over button name; also change pop over title in MainWindow.xib
     barButtonItem.title = @"Cases";
     NSMutableArray *items = [[self.toolbar items] mutableCopy];
     [items insertObject:barButtonItem atIndex:0];
