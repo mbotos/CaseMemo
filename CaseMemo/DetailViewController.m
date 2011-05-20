@@ -43,8 +43,8 @@
         [_detailItem release];
         _detailItem = [newDetailItem retain];
         
-        
-        NSString *queryString = [NSString stringWithFormat:@"Select Id, Name From Attachment Where ParentId = '%@'", [(ZKSObject*)_detailItem fieldValue:@"Id"]];
+        // STEP 5 c - Get Attachments for Case using SOQL query string
+        NSString *queryString = [NSString stringWithFormat:@"Select Id, Name From Attachment Where ParentId = '%@'", [self.detailItem fieldValue:@"Id"]];
         [[FDCServerSwitchboard switchboard] query:queryString target:self selector:@selector(queryResult:error:context:) context:nil];
     
         [self configureView];
@@ -59,6 +59,7 @@
 {
     if (result && !error)
     {
+        // STEP 5 d - Store Attachment results and reload attachments table in view
         self.attachments = [result records];
         [self.attachmentsTable reloadData];
     }
@@ -146,11 +147,11 @@
 	self.popoverController = nil;
 }
 
+// STEP 5 e - Render attachment table cells
+
 #pragma mark - Attachments table data
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Attachments cellForRowAtIndexPath %d", indexPath.row);
-    
     static NSString *CellIndentifer = @"AttachmentCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifer];
@@ -169,7 +170,6 @@
 }
 
 - (int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"Attachments numberOfRowsInSection %d", [self.attachments count]);
     return [self.attachments count];
 }
 

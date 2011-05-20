@@ -20,6 +20,8 @@
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
 
 @property (nonatomic, retain) id detailItem;
+
+// STEP 5 a - Store attachments in an array
 @property (nonatomic, retain) NSArray *attachments;
 
 // STEP 4 a - Create layout in DetailView.xib and link outlets
@@ -27,6 +29,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *subjectLabel;
 @property (nonatomic, retain) IBOutlet UILabel *descriptionLabel;
 
+// STEP 5 b - Create attachments table in DetailView.xib and link outlet and delegates
 @property (nonatomic, retain) IBOutlet UITableView *attachmentsTable;
 
 @end
