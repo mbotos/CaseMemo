@@ -14,7 +14,7 @@
     UILabel *_subjectLabel;
     UILabel *_descriptionLabel;
     UITableView *_attachmentsTable;
-    BOOL showAttachmentsHeader;
+    BOOL hasAttachments;
     UIView *_attachmentsHeaderView;
 }
 

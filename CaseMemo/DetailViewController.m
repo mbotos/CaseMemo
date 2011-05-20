@@ -48,13 +48,18 @@
         
         [self.attachments removeAllObjects];
         
+        // STEP 6 c - Use counter on Case to determine if there are Attachments to get
+        // and if so, show the header with the loading indicator
+        //
+        // See CaseAttachmentCount_Test class in Salesforce for trigger and initialization
+        
         if ([self.detailItem intValue:@"Attachment_Count__c"] > 0) {
             // STEP 5 c - Get Attachments for Case using SOQL query string
             NSString *queryString = [NSString stringWithFormat:@"Select Id, Name From Attachment Where ParentId = '%@'", [self.detailItem fieldValue:@"Id"]];
             [[FDCServerSwitchboard switchboard] query:queryString target:self selector:@selector(queryResult:error:context:) context:nil];
-            showAttachmentsHeader = YES;
+            hasAttachments = YES;
         } else {
-            showAttachmentsHeader = NO;            
+            hasAttachments = NO;            
         }
     
         [self configureView];
@@ -72,6 +77,9 @@
         // STEP 5 d - Store Attachment results and reload attachments table in view
         self.attachments = [[result records] mutableCopy];
         [self.attachmentsTable reloadData];
+        
+        // STEP 6 g - Stop loading indicator once Attachments are loaded
+        // Will also hide indicator based on property set in .xib
         [self.attachmentsLoadingIndicator stopAnimating];
     }
     else if (error)
@@ -89,10 +97,11 @@
 
     [self.attachmentsTable reloadData];
 
-    if (showAttachmentsHeader) {
+    if (hasAttachments) {
         [self.attachmentsLoadingIndicator startAnimating];
     }
     
+    // STEP 6 b - Hide loading indicator after data is loaded
     [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
@@ -150,6 +159,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // STEP 6 d - Load Attachments header with loading indicator from DetailViewAttachmentsHeader.xib
     [[NSBundle mainBundle] loadNibNamed:@"DetailViewAttachmentsHeader" owner:self options:nil];
     
     self.numberLabel.text = nil;
@@ -158,6 +169,7 @@
     
     self.attachmentsTable.backgroundView = [[[UIImageView alloc] init] autorelease];
     
+    // STEP 6 a - Show loading indicator while waiting for query callback
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
 
@@ -193,13 +205,17 @@
     return cell;
 }
 
+// STEP 6 f - Update table section count so table is visibile while loading
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return showAttachmentsHeader ? 1 : 0;
+    return hasAttachments ? 1 : 0;
 }
 
 - (int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.attachments count];
 }
+
+
+// STEP 6 e - Return custom Attachments header view with loading indicator
 
 #pragma mark - Attachments table
 
