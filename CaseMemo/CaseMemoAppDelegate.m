@@ -12,6 +12,7 @@
 #import "FDCServerSwitchboard.h"
 #import "GenericPassword.h"
 
+// STEP 1 a - Consumer Key from Salesforce Setup > Develop > Remote Access
 #define kSFOAuthConsumerKey @"3MVG9y6x0357HleejikYgTgKSQy7Ba8e7zCk_NwT6fye_OKUEmRjgZxgZ8OQCywvuw7WaW_g5VAJpijHWt9kC"
 #define KeychainLabel @"OAuthRefreshToken"
 
@@ -62,6 +63,7 @@
     }
 }
 
+// STEP 1 c - Handle OAuth login callback
 - (void)loginOAuth:(FDCOAuthViewController *)oAuthViewController error:(NSError *)error
 {
     if ([oAuthViewController accessToken] && !error)
@@ -76,6 +78,8 @@
         [self.oAuthViewController autorelease];
         
         [self saveOAuthData: oAuthViewController];
+        
+        // STEP 2 a - Load data after login
         [self.rootViewController loadData];
     }
     else if (error)
@@ -89,6 +93,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // STEP 1 b - Show OAuth login
     [[FDCServerSwitchboard switchboard] setClientId:kSFOAuthConsumerKey];
     GenericPassword *genericPassword = [[GenericPassword alloc] initWithLabel:KeychainLabel accessGroup:nil];
     BOOL hasOAuthToken = genericPassword.password != @"";

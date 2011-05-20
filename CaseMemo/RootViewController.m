@@ -18,11 +18,13 @@
 @synthesize detailViewController;
 @synthesize dataRows;
 
+// STEP 2 b - Load Case list using standard SOQL query string
 - (void) loadData {
     NSString *queryString = @"Select Id, CaseNumber, Subject, Description From Case";
     [[FDCServerSwitchboard switchboard] query:queryString target:self selector:@selector(queryResult:error:context:) context:nil];
 }
 
+// STEP 2 c - Asynchonous callback with results of Case list query
 - (void)queryResult:(ZKQueryResult *)result error:(NSError *)error context:(id)context
 {
     //NSLog(@"queryResult:%@ eror:%@ context:%@", result, error, context);
@@ -41,6 +43,8 @@
 {
     [super viewDidLoad];
     self.clearsSelectionOnViewWillAppear = NO;
+
+    // STEP 2 f - Enlarge pop over to fit Case Subjects
     self.contentSizeForViewInPopover = CGSizeMake(640.0, 800.0);
 }
 
@@ -92,6 +96,7 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
 
+    // STEP 2 d - Each table cell displays the Subject of a Case
 	ZKSObject *obj = [dataRows objectAtIndex:indexPath.row];
 	cell.textLabel.text = [obj fieldValue:@"Subject"];
     		
