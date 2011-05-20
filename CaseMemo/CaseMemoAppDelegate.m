@@ -62,6 +62,7 @@
     	[self.splitViewController dismissModalViewControllerAnimated:YES];
         [self.oAuthViewController autorelease];
         
+        // STEP 2 a - Load data after login
         [self.rootViewController loadData];
     }
     else if (error)
