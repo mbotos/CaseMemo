@@ -43,7 +43,8 @@
 {
     [super viewDidLoad];
     self.clearsSelectionOnViewWillAppear = NO;
-    self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
+    // STEP 2 f - Enlarge pop over to fit Case Subjects
+    self.contentSizeForViewInPopover = CGSizeMake(640.0, 800.0);
 }
 
 		
