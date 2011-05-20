@@ -11,6 +11,7 @@
 #import "FDCOAuthViewController.h"
 #import "FDCServerSwitchboard.h"
 
+// STEP 1 a - Consumer Key from Salesforce Setup > Develop > Remote Access
 #define kSFOAuthConsumerKey @"3MVG9y6x0357HleejikYgTgKSQy7Ba8e7zCk_NwT6fye_OKUEmRjgZxgZ8OQCywvuw7WaW_g5VAJpijHWt9kC"
 
 @implementation CaseMemoAppDelegate
@@ -28,6 +29,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // STEP 1 b - Show OAuth login
     [[FDCServerSwitchboard switchboard] setClientId:kSFOAuthConsumerKey];
     self.oAuthViewController = [[FDCOAuthViewController alloc] initWithTarget:self selector:@selector(loginOAuth:error:) clientId:kSFOAuthConsumerKey];
 
@@ -40,6 +42,7 @@
     return YES;
 }
 
+// STEP 1 c - Handle OAuth login callback
 - (void)loginOAuth:(FDCOAuthViewController *)oAuthViewController error:(NSError *)error
 {
     if ([oAuthViewController accessToken] && !error)
