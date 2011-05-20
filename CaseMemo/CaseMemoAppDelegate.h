@@ -30,4 +30,6 @@
 + (void)errorWithError:(NSError*)error;
 + (void)errorWithMessage:(NSString*)message;
 
+- (void) saveOAuthData: (FDCOAuthViewController *)oAuthViewController;
+
 @end
