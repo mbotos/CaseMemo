@@ -49,6 +49,7 @@
         [self.attachments removeAllObjects];
         
         if ([self.detailItem intValue:@"Attachment_Count__c"] > 0) {
+            // STEP 5 c - Get Attachments for Case using SOQL query string
             NSString *queryString = [NSString stringWithFormat:@"Select Id, Name From Attachment Where ParentId = '%@'", [self.detailItem fieldValue:@"Id"]];
             [[FDCServerSwitchboard switchboard] query:queryString target:self selector:@selector(queryResult:error:context:) context:nil];
             showAttachmentsHeader = YES;
@@ -68,6 +69,7 @@
 {
     if (result && !error)
     {
+        // STEP 5 d - Store Attachment results and reload attachments table in view
         self.attachments = [[result records] mutableCopy];
         [self.attachmentsTable reloadData];
         [self.attachmentsLoadingIndicator stopAnimating];
@@ -80,6 +82,7 @@
 
 - (void)configureView
 {    
+    // STEP 4 b - Assign data to layout
     self.numberLabel.text = [NSString stringWithFormat:@"Case Number %@", [self.detailItem fieldValue:@"CaseNumber"]];
     self.subjectLabel.text = [self.detailItem fieldValue:@"Subject"];
     self.descriptionLabel.text = [self.detailItem fieldValue:@"Description"];
@@ -122,6 +125,7 @@
 
 - (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController: (UIPopoverController *)pc
 {
+    // STEP 2 e - Change pop over button name; also change pop over title in MainWindow.xib
     barButtonItem.title = @"Cases";
     NSMutableArray *items = [[self.toolbar items] mutableCopy];
     [items insertObject:barButtonItem atIndex:0];
@@ -170,6 +174,8 @@
 	// e.g. self.myOutlet = nil;
 	self.popoverController = nil;
 }
+
+// STEP 5 e - Render attachment table cells
 
 #pragma mark - Attachments table data
 
