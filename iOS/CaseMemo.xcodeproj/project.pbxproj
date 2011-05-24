@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		340B58C6138C3DA1007C5327 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 340B58C5138C3DA1007C5327 /* NSData+Base64.m */; };
 		347E3586138C196D00A98ADC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347E3585138C196D00A98ADC /* AVFoundation.framework */; };
 		348EF86313858D9500D88F34 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 348EF86213858D9500D88F34 /* MBProgressHUD.m */; };
 		348EF866138598A300D88F34 /* DetailViewAttachmentsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 348EF865138598A200D88F34 /* DetailViewAttachmentsHeader.xib */; };
@@ -76,6 +77,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		340B58C4138C3DA1007C5327 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		340B58C5138C3DA1007C5327 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		347E3585138C196D00A98ADC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		348EF86113858D9500D88F34 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		348EF86213858D9500D88F34 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
@@ -220,6 +223,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		340B58C3138C3DA1007C5327 /* NSData_Base64 */ = {
+			isa = PBXGroup;
+			children = (
+				340B58C4138C3DA1007C5327 /* NSData+Base64.h */,
+				340B58C5138C3DA1007C5327 /* NSData+Base64.m */,
+			);
+			path = NSData_Base64;
+			sourceTree = "<group>";
+		};
 		348EF86013858D9500D88F34 /* MBProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +273,7 @@
 		34CA2DB31382B79F00EA1420 /* CaseMemo */ = {
 			isa = PBXGroup;
 			children = (
+				340B58C3138C3DA1007C5327 /* NSData_Base64 */,
 				348EF86013858D9500D88F34 /* MBProgressHUD */,
 				34CA2E541382DF0500EA1420 /* ObjectiveKeychain */,
 				34CA2DD01382B7EA00EA1420 /* ZKSforce */,
@@ -529,6 +542,7 @@
 				34CA2E881383022700EA1420 /* KeychainItem.m in Sources */,
 				34CA2E8A1383022700EA1420 /* Password.m in Sources */,
 				348EF86313858D9500D88F34 /* MBProgressHUD.m in Sources */,
+				340B58C6138C3DA1007C5327 /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

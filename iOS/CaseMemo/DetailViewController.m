@@ -9,12 +9,14 @@
 #import "DetailViewController.h"
 
 #import "RootViewController.h"
-#import "ZKSObject.h"
+#import "ZKSforce.h"
 #import "FDCServerSwitchboard.h"
 #import "CaseMemoAppDelegate.h"
 #import "MBProgressHUD.h"
+#import "NSData+Base64.h"
 
 static const NSInteger OkButtonIndex = 1;
+static NSString * const AudioAttachmentName = @"Audio Memo.caf";
 
 @interface DetailViewController ()
 @property (nonatomic, retain) UIPopoverController *popoverController;
@@ -109,29 +111,40 @@ static const NSInteger OkButtonIndex = 1;
     [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+// STEP 8 c - Create Salesforce object for Attachment
+- (ZKSObject*) createAudioAttachment {
+    ZKSObject *attachment = [ZKSObject withType:@"Attachment"];
+    [attachment setFieldValue:AudioAttachmentName field:@"Name"];
+    [attachment setFieldValue:[self.detailItem fieldValue:@"Id"] field:@"ParentId"];
+    
+    // Attachment body must be base64 encoded; use method provided by NSData+Base64 category
+    NSData *soundData = [NSData dataWithContentsOfURL:soundFileURL];
+    [attachment setFieldValue:[soundData base64EncodedString] field:@"Body"];
+    
+    return attachment;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    self.subjectLabel.numberOfLines = 2;
-    [super viewDidAppear:animated];
+// STEP 8 b - Save audio Attachment
+- (void) saveAudioAttachment {
+    ZKSObject *attachment = [self createAudioAttachment];
+    [self.attachments addObject:attachment];
+    [self.attachmentsTable reloadData];
+    
+    // STEP 8 d - Create in Salesforce asynchronously
+    [[FDCServerSwitchboard switchboard] create:[NSArray arrayWithObject:attachment] target:self selector:@selector(createResult:error:context:) context:nil];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+// STEP 8 e - Callback with result of Attachment creation in Salesforce
+- (void)createResult:(ZKQueryResult *)result error:(NSError *)error context:(id)context
 {
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
+    if (result && !error)
+    {
+        NSLog(@"Attachment saved to Salesforce");
+    }
+    else if (error)
+    {
+        [CaseMemoAppDelegate errorWithError:error];
+    }
 }
 
 #pragma mark - Audio recording
@@ -182,7 +195,8 @@ static const NSInteger OkButtonIndex = 1;
     [self stopRecording];
     
     if (buttonIndex == OkButtonIndex) {
-        NSLog(@"TODO: Save audio as Attachment");
+        // STEP 8 a - Replace TODO with actual save
+        [self saveAudioAttachment];
     }
 }
 
@@ -257,7 +271,7 @@ static const NSInteger OkButtonIndex = 1;
     self.popoverController = nil;
 }
 
-#pragma mark - View load/unload
+#pragma mark - View events
 
  // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
@@ -272,6 +286,9 @@ static const NSInteger OkButtonIndex = 1;
     self.descriptionLabel.text = nil;
     
     self.attachmentsTable.backgroundView = [[[UIImageView alloc] init] autorelease];
+    
+    // prevent bad resizing and clipping when switching to landscape
+    self.attachmentsTable.autoresizingMask = UIViewAutoresizingNone;
     
     [self.recordButton removeFromSuperview];
     
@@ -292,6 +309,31 @@ static const NSInteger OkButtonIndex = 1;
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
 	self.popoverController = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    self.subjectLabel.numberOfLines = 2;
+    [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    return YES;
 }
 
 // STEP 5 e - Render attachment table cells
