@@ -43,4 +43,13 @@ private class CaseAttachmentCount_Test {
     	CaseAttachmentCount.updateAllCases();
     	System.assertEquals(caseCount, [select count() from Case where Attachment_Count__c != null]);
     }
+    
+    static testMethod void nonCaseAttachmentIsInserted() {
+    	Contact contact = new Contact(LastName = 'Test');
+    	insert contact;
+    	
+    	insertAttachment(contact.Id);
+    	
+    	System.assert(attachment.id != null);
+    }
 }
