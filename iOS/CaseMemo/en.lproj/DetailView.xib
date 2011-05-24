@@ -131,7 +131,7 @@
 					<object class="IBUITableView" id="315193287">
 						<reference key="NSNextResponder" ref="647120888"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{20, 425}, {320, 247}}</string>
+						<string key="NSFrame">{{20, 425}, {320, 197}}</string>
 						<reference key="NSSuperview" ref="647120888"/>
 						<reference key="NSWindow"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -139,7 +139,6 @@
 							<bytes key="NSRGB">MCAwIDAgMAA</bytes>
 						</object>
 						<bool key="IBUIOpaque">NO</bool>
-						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<bool key="IBUIAlwaysBounceVertical">YES</bool>
@@ -349,6 +348,8 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>attachmentsHeaderView</string>
+							<string>attachmentsLoadingIndicator</string>
 							<string>attachmentsTable</string>
 							<string>descriptionLabel</string>
 							<string>numberLabel</string>
@@ -357,6 +358,8 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UIView</string>
+							<string>UIActivityIndicatorView</string>
 							<string>UITableView</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
@@ -368,6 +371,8 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>attachmentsHeaderView</string>
+							<string>attachmentsLoadingIndicator</string>
 							<string>attachmentsTable</string>
 							<string>descriptionLabel</string>
 							<string>numberLabel</string>
@@ -376,6 +381,14 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">attachmentsHeaderView</string>
+								<string key="candidateClassName">UIView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">attachmentsLoadingIndicator</string>
+								<string key="candidateClassName">UIActivityIndicatorView</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">attachmentsTable</string>
 								<string key="candidateClassName">UITableView</string>
