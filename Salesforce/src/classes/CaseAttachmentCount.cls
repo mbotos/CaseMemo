@@ -1,4 +1,5 @@
 public with sharing class CaseAttachmentCount {
+	// STEP 6 c - Initialize existing Cases
 	public static void updateAllCases() {
 		updateCaseIds(null, false);
 	}

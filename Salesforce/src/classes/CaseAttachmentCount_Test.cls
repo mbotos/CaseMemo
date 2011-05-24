@@ -1,3 +1,4 @@
+// STEP 6 c - Test initialization and trigger update of Attachment_Count__c on Case
 @isTest
 private class CaseAttachmentCount_Test {
 	static Case myCase = new Case();
@@ -11,8 +12,12 @@ private class CaseAttachmentCount_Test {
 		return [select Attachment_Count__c from Case where id = :myCase.Id].Attachment_Count__c;
 	}
 	
-	static void insertAttachment() {				
-		attachment = new Attachment(ParentId = myCase.Id, Name = 'Test Attachment', Body = blob.valueOf('Test'));
+	static void insertCaseAttachment() {	
+		insertAttachment(myCase.Id);
+	}			
+	
+	static void insertAttachment(id parentId) {				
+		attachment = new Attachment(ParentId = parentId, Name = 'Test Attachment', Body = blob.valueOf('Test'));
 		insert attachment;		
 	}
 
@@ -21,13 +26,13 @@ private class CaseAttachmentCount_Test {
     }
     
     static testMethod void newCaseAttachmentIncrementsCount() {
-    	insertAttachment();
+    	insertCaseAttachment();
     	
         System.assertEquals(1, getAttachmentCount());
     }
     
     static testMethod void deleteCaseAttachmentDecrementsCount() {
-   		insertAttachment();
+   		insertCaseAttachment();
    		delete attachment;
    		
         System.assertEquals(0, getAttachmentCount());

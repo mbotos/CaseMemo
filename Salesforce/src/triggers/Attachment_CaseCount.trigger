@@ -1,3 +1,4 @@
+// STEP 6 c - Update Attachment_Count__c on Case
 trigger Attachment_CaseCount on Attachment (before delete, after insert, after undelete) {
 	// use before delete so we still get an aggregate count
 	set<Id> caseIds = new set<Id>();
