@@ -273,6 +273,9 @@ static const NSInteger OkButtonIndex = 1;
     
     self.attachmentsTable.backgroundView = [[[UIImageView alloc] init] autorelease];
     
+    // prevent bad resizing and clipping when switching to landscape
+    self.attachmentsTable.autoresizingMask = UIViewAutoresizingNone;
+    
     [self.recordButton removeFromSuperview];
     
     // STEP 6 a - Show loading indicator while waiting for query callback
