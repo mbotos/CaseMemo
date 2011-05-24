@@ -6,16 +6,29 @@
 //  Copyright 2011 Mavens Consulting, Inc. All rights reserved.
 //
 
+#import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 
-@interface DetailViewController : UIViewController <UIPopoverControllerDelegate, UISplitViewControllerDelegate, UITableViewDelegate, UITableViewDataSource> {
+@interface DetailViewController : UIViewController <
+    UIPopoverControllerDelegate, UISplitViewControllerDelegate, 
+    UITableViewDelegate, UITableViewDataSource,
+    AVAudioSessionDelegate, AVAudioRecorderDelegate, 
+    UIAlertViewDelegate
+> {
 
     UILabel *_numberLabel;
     UILabel *_subjectLabel;
     UILabel *_descriptionLabel;
     UITableView *_attachmentsTable;
-    BOOL hasAttachments;
     UIView *_attachmentsHeaderView;
+
+    BOOL hasAttachments;
+
+    AVAudioRecorder *soundRecorder;
+	bool recording;
+	NSURL *soundFileURL;
+
+    UIButton *_recordButton;
 }
 
 
@@ -36,5 +49,14 @@
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *attachmentsLoadingIndicator;
 @property (nonatomic, retain) IBOutlet UIView *attachmentsHeaderView;
 
+// STEP 7 a - Create record button in DetailView.xib and link TouchUpInside event
+@property (nonatomic, retain) IBOutlet UIButton *recordButton;
+- (IBAction)record:(id)sender;
+
+- (void) deleteSoundFile;
+- (void) initializeAudio;
+- (void) showRecordDialog;
+- (void) startRecording;
+- (void) stopRecording;
 
 @end

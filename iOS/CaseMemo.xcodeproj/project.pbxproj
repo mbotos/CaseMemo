@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		347E3586138C196D00A98ADC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347E3585138C196D00A98ADC /* AVFoundation.framework */; };
 		348EF86313858D9500D88F34 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 348EF86213858D9500D88F34 /* MBProgressHUD.m */; };
 		348EF866138598A300D88F34 /* DetailViewAttachmentsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 348EF865138598A200D88F34 /* DetailViewAttachmentsHeader.xib */; };
 		34CA2DAE1382B79F00EA1420 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34CA2DAD1382B79F00EA1420 /* UIKit.framework */; };
@@ -75,6 +76,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		347E3585138C196D00A98ADC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		348EF86113858D9500D88F34 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		348EF86213858D9500D88F34 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		348EF865138598A200D88F34 /* DetailViewAttachmentsHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewAttachmentsHeader.xib; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				347E3586138C196D00A98ADC /* AVFoundation.framework in Frameworks */,
 				34CA2E6C1382E18800EA1420 /* Security.framework in Frameworks */,
 				34CA2DAE1382B79F00EA1420 /* UIKit.framework in Frameworks */,
 				34CA2DB01382B79F00EA1420 /* Foundation.framework in Frameworks */,
@@ -246,6 +249,7 @@
 		34CA2DAC1382B79F00EA1420 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				347E3585138C196D00A98ADC /* AVFoundation.framework */,
 				34CA2E6B1382E18800EA1420 /* Security.framework */,
 				34CA2DAD1382B79F00EA1420 /* UIKit.framework */,
 				34CA2DAF1382B79F00EA1420 /* Foundation.framework */,

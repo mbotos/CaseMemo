@@ -14,12 +14,15 @@
 #import "CaseMemoAppDelegate.h"
 #import "MBProgressHUD.h"
 
+static const NSInteger OkButtonIndex = 1;
+
 @interface DetailViewController ()
 @property (nonatomic, retain) UIPopoverController *popoverController;
 - (void)configureView;
 @end
 
 @implementation DetailViewController
+@synthesize recordButton = _recordButton;
 
 @synthesize toolbar=_toolbar;
 
@@ -96,6 +99,7 @@
     self.descriptionLabel.text = [self.detailItem fieldValue:@"Description"];
 
     [self.attachmentsTable reloadData];
+    [self.view addSubview:self.recordButton];
 
     if (hasAttachments) {
         [self.attachmentsLoadingIndicator startAnimating];
@@ -128,6 +132,108 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
+}
+
+#pragma mark - Audio recording
+
+- (void) deleteSoundFile {
+	NSError *error = nil;
+	[[NSFileManager defaultManager] removeItemAtPath:[soundFileURL absoluteString] error:&error];	
+	if (error != nil) {
+		[CaseMemoAppDelegate errorWithError:error];
+	}    
+}
+
+// STEP 7 c - Initialize audio
+- (void) initializeAudio
+{
+    NSString *tempDir = NSTemporaryDirectory();	
+    NSString *soundFilePath = [tempDir stringByAppendingString: @"sound.caf"];
+	
+    soundFileURL = [[NSURL alloc] initFileURLWithPath: soundFilePath];
+	
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];	
+    //audioSession.delegate = self;	
+    
+	NSError *error = nil;
+    [audioSession setActive: YES error: &error];	
+	if (error != nil) {
+		[CaseMemoAppDelegate errorWithError:error];
+	}
+}
+
+// STEP 7 b - Record audio
+- (IBAction)record:(id)sender {
+    [self initializeAudio];
+    
+    [self startRecording];
+
+    [self showRecordDialog];
+}
+
+// STEP 7 e - Show recording dialog
+- (void) showRecordDialog {
+	UIAlertView *dialog = [[UIAlertView alloc] initWithTitle:@"Recording" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done", nil];
+	[dialog show];
+	[dialog release];    
+}
+
+// STEP 7 f - Respond to recording dialog Cancel or Done
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [self stopRecording];
+    
+    if (buttonIndex == OkButtonIndex) {
+        NSLog(@"TODO: Save audio as Attachment");
+    }
+}
+
+// STEP 7 d - Start recording
+- (void) startRecording {
+    NSError *error = nil;
+    [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryRecord error: &error];		
+    if (error != nil) {
+        [CaseMemoAppDelegate errorWithError:error];
+    }
+    
+    // recording settings are very picky and undocumented
+    // known good values: .caf file with AppleLossless, AppleIMA4, or uLaw		
+    NSDictionary *recordSettings =		
+    [[NSDictionary alloc] initWithObjectsAndKeys:		 
+     [NSNumber numberWithFloat: 22050.0], AVSampleRateKey,		 
+     [NSNumber numberWithInt: kAudioFormatULaw], AVFormatIDKey,		 
+     [NSNumber numberWithInt: 1], AVNumberOfChannelsKey,		 
+     [NSNumber numberWithInt: AVAudioQualityMedium], AVEncoderAudioQualityKey,		 
+     nil];
+    
+    error = nil;		
+    soundRecorder = [[AVAudioRecorder alloc] initWithURL:soundFileURL settings:recordSettings error:&error];
+    if (error != nil) {
+        // Error Domain=NSOSStatusErrorDomain Code=1718449215 means bad format
+        [CaseMemoAppDelegate errorWithError:error];
+    }	
+	
+    NSLog(@"Recording to %@", soundFileURL);
+    
+    [recordSettings release];		
+    
+    //soundRecorder.delegate = self;		
+    [soundRecorder prepareToRecord];		
+    [soundRecorder record];
+    
+}
+
+// STEP 7 g - Stop recording
+- (void) stopRecording {
+    NSLog(@"Recording stopped");
+    
+    [soundRecorder stop];		
+    soundRecorder = nil;
+    
+    NSError *error = nil;		
+    [[AVAudioSession sharedInstance] setActive: NO error:&error];		
+    if (error != nil) {
+        [CaseMemoAppDelegate errorWithError:error];
+    }    
 }
 
 #pragma mark - Split view support
@@ -169,6 +275,8 @@
     
     self.attachmentsTable.backgroundView = [[[UIImageView alloc] init] autorelease];
     
+    [self.recordButton removeFromSuperview];
+    
     // STEP 6 a - Show loading indicator while waiting for query callback
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
@@ -180,6 +288,7 @@
     [self setDescriptionLabel:nil];
     [self setAttachmentsTable:nil];
     [self setAttachmentsHeaderView:nil];
+    [self setRecordButton:nil];
 	[super viewDidUnload];
 
 	// Release any retained subviews of the main view.
@@ -248,6 +357,9 @@
     [_attachmentsTable release];
     [_attachmentsLoadingIndicator release];
     [_attachmentsHeaderView release];
+    [_recordButton release];
+	[soundRecorder release];
+	[soundFileURL release];
     [super dealloc];
 }
 
