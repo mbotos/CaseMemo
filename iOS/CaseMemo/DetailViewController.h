@@ -12,7 +12,6 @@
 @interface DetailViewController : UIViewController <
     UIPopoverControllerDelegate, UISplitViewControllerDelegate, 
     UITableViewDelegate, UITableViewDataSource,
-    AVAudioSessionDelegate, AVAudioRecorderDelegate, 
     UIAlertViewDelegate
 > {
 

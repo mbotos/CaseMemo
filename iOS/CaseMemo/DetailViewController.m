@@ -153,7 +153,6 @@ static const NSInteger OkButtonIndex = 1;
     soundFileURL = [[NSURL alloc] initFileURLWithPath: soundFilePath];
 	
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];	
-    //audioSession.delegate = self;	
     
 	NSError *error = nil;
     [audioSession setActive: YES error: &error];	
@@ -216,7 +215,6 @@ static const NSInteger OkButtonIndex = 1;
     
     [recordSettings release];		
     
-    //soundRecorder.delegate = self;		
     [soundRecorder prepareToRecord];		
     [soundRecorder record];
     
