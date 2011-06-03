@@ -23,9 +23,8 @@
 
     BOOL hasAttachments;
 
-    AVAudioRecorder *soundRecorder;
-	bool recording;
-	NSURL *soundFileURL;
+    AVAudioRecorder *audioRecorder;
+	NSURL *audioURL;
 
     UIButton *_recordButton;
 }
