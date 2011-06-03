@@ -8,11 +8,13 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
+#import "ZKSforce.h"
 
 @interface DetailViewController : UIViewController <
     UIPopoverControllerDelegate, UISplitViewControllerDelegate, 
     UITableViewDelegate, UITableViewDataSource,
-    UIAlertViewDelegate
+    UIAlertViewDelegate,
+    AVAudioPlayerDelegate
 > {
 
     UILabel *_numberLabel;
@@ -24,7 +26,9 @@
     BOOL hasAttachments;
 
     AVAudioRecorder *audioRecorder;
+	AVAudioPlayer *audioPlayer;
 	NSURL *audioURL;
+    NSIndexPath *audioIndexPath;
 
     UIButton *_recordButton;
 }
@@ -50,6 +54,10 @@
 // STEP 7 a - Create record button in DetailView.xib and link TouchUpInside event
 @property (nonatomic, retain) IBOutlet UIButton *recordButton;
 - (IBAction)record:(id)sender;
+
+- (void) loadAudio:(ZKSObject *) attachment;
+- (void) attachmentBodyQueryResult:(ZKQueryResult *)result error:(NSError *)error context:(id)context;
+- (void) playAudioAttachment:(ZKSObject *) attachment;
 
 - (void) deleteSoundFile;
 - (void) initializeAudio;

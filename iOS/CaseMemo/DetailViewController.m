@@ -60,7 +60,9 @@ static NSString * const AudioAttachmentName = @"Audio Memo.caf";
         
         if ([self.detailItem intValue:@"Attachment_Count__c"] > 0) {
             // STEP 5 c - Get Attachments for Case using SOQL query string
-            NSString *queryString = [NSString stringWithFormat:@"Select Id, Name From Attachment Where ParentId = '%@'", [self.detailItem fieldValue:@"Id"]];
+            // STEP 9 g - Only get audio Attachments
+            NSString *queryString = [NSString stringWithFormat:@"Select Id, Name From Attachment Where ParentId = '%@' and Name = '%@'", 
+                                     [self.detailItem fieldValue:@"Id"], AudioAttachmentName];
             [[FDCServerSwitchboard switchboard] query:queryString target:self selector:@selector(queryResult:error:context:) context:nil];
             hasAttachments = YES;
         } else {
@@ -118,7 +120,7 @@ static NSString * const AudioAttachmentName = @"Audio Memo.caf";
     [attachment setFieldValue:[self.detailItem fieldValue:@"Id"] field:@"ParentId"];
     
     // Attachment body must be base64 encoded; use method provided by NSData+Base64 category
-    NSData *soundData = [NSData dataWithContentsOfURL:soundFileURL];
+    NSData *soundData = [NSData dataWithContentsOfURL:audioURL];
     [attachment setFieldValue:[soundData base64EncodedString] field:@"Body"];
     
     return attachment;
@@ -131,20 +133,94 @@ static NSString * const AudioAttachmentName = @"Audio Memo.caf";
     [self.attachmentsTable reloadData];
     
     // STEP 8 d - Create in Salesforce asynchronously
-    [[FDCServerSwitchboard switchboard] create:[NSArray arrayWithObject:attachment] target:self selector:@selector(createResult:error:context:) context:nil];
+    [[FDCServerSwitchboard switchboard] create:[NSArray arrayWithObject:attachment] target:self selector:@selector(createResult:error:context:) context:attachment];
 }
 
 // STEP 8 e - Callback with result of Attachment creation in Salesforce
-- (void)createResult:(ZKQueryResult *)result error:(NSError *)error context:(id)context
+- (void)createResult:(NSArray *)results error:(NSError *)error context:(id)attachment
 {
-    if (result && !error)
+    if (results && !error)
     {
-        NSLog(@"Attachment saved to Salesforce");
+        // STEP 9 c - Set Id for newly created Attachment so we can query for Body
+        NSString* attachmentId = [[results objectAtIndex:0] id]; 
+        [attachment setId:attachmentId];
+        NSLog(@"Attachment %@ saved to Salesforce", attachmentId);
     }
     else if (error)
     {
         [CaseMemoAppDelegate errorWithError:error];
     }
+}
+
+#pragma mark - Audio playback
+
+// STEP 9 b - Load audio from Attachment Body if necessary
+- (void) loadAudio:(ZKSObject *) attachment {
+    if ([attachment fieldValue:@"Body"]) {
+        [self playAudioAttachment:attachment];        
+    } else {
+        NSString *queryString = [NSString stringWithFormat:@"Select Body From Attachment Where Id = '%@'", [attachment Id]];
+        [[FDCServerSwitchboard switchboard] query:queryString target:self selector:@selector(attachmentBodyQueryResult:error:context:) context:nil]; 
+    }
+}
+
+// STEP 9 d - Process Attachment Body query result
+- (void) attachmentBodyQueryResult:(ZKQueryResult *)result error:(NSError *)error context:(id)context
+{
+    if (result && !error)
+    {
+        ZKSObject *attachment = (ZKSObject*)[[result records] objectAtIndex:0];
+        [self playAudioAttachment:attachment];
+    }
+    else if (error)
+    {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        
+        [CaseMemoAppDelegate errorWithError:error];
+    }
+}
+
+// STEP 9 e - Play audio from Attachment Body
+- (void) playAudioAttachment:(ZKSObject *) attachment {
+    // Decode body from base64
+    NSData *audioData = [NSData dataFromBase64String:[attachment fieldValue:@"Body"]];
+    
+	if (audioData != nil) {
+		NSError *error = nil;
+		audioPlayer = [[AVAudioPlayer alloc] initWithData:audioData error:&error];
+		if (error) {
+			[CaseMemoAppDelegate errorWithError:error];
+            return;
+		}
+        audioPlayer.delegate = self; // for detecting finish
+        
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];	
+		
+		error = nil;
+		[audioSession setActive: YES error: &error];
+		if (error) {
+			[CaseMemoAppDelegate errorWithError:error];
+            return;
+		}
+		
+		error = nil;
+		[audioSession setCategory: AVAudioSessionCategoryPlayback error: &error];
+		if (error) {
+			[CaseMemoAppDelegate errorWithError:error];
+            return;
+		}
+		
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        
+		[audioPlayer play];
+	} else {
+		[CaseMemoAppDelegate errorWithMessage:@"Attachment body is empty"];
+	}
+}
+
+// STEP 9 f - Deselect table row when done playing
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    [self.attachmentsTable deselectRowAtIndexPath:audioIndexPath animated:YES];
 }
 
 #pragma mark - Audio recording
@@ -374,6 +450,17 @@ static NSString * const AudioAttachmentName = @"Audio Memo.caf";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     return self.attachmentsHeaderView;
+}
+
+// Step 9 a - Load audio when Attachment is selected
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZKSObject *attachment = [self.attachments objectAtIndex:indexPath.row];
+    audioIndexPath = indexPath; // save indexPath for deselect when done playing
+
+    MBProgressHUD *progressHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    progressHUD.labelText = @"Loading audio";
+    
+    [self loadAudio:attachment];
 }
 
 #pragma mark - Memory management
