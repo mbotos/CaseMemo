@@ -138,7 +138,7 @@ static const NSInteger OkButtonIndex = 1;
 
 - (void) deleteSoundFile {
 	NSError *error = nil;
-	[[NSFileManager defaultManager] removeItemAtPath:[soundFileURL absoluteString] error:&error];	
+	[[NSFileManager defaultManager] removeItemAtPath:[audioURL absoluteString] error:&error];	
 	if (error != nil) {
 		[CaseMemoAppDelegate errorWithError:error];
 	}    
@@ -150,7 +150,7 @@ static const NSInteger OkButtonIndex = 1;
     NSString *tempDir = NSTemporaryDirectory();	
     NSString *soundFilePath = [tempDir stringByAppendingString: @"sound.caf"];
 	
-    soundFileURL = [[NSURL alloc] initFileURLWithPath: soundFilePath];
+    audioURL = [[NSURL alloc] initFileURLWithPath: soundFilePath];
 	
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];	
     
@@ -205,18 +205,18 @@ static const NSInteger OkButtonIndex = 1;
      nil];
     
     error = nil;		
-    soundRecorder = [[AVAudioRecorder alloc] initWithURL:soundFileURL settings:recordSettings error:&error];
+    audioRecorder = [[AVAudioRecorder alloc] initWithURL:audioURL settings:recordSettings error:&error];
     if (error != nil) {
         // Error Domain=NSOSStatusErrorDomain Code=1718449215 means bad format
         [CaseMemoAppDelegate errorWithError:error];
     }	
 	
-    NSLog(@"Recording to %@", soundFileURL);
+    NSLog(@"Recording to %@", audioURL);
     
     [recordSettings release];		
     
-    [soundRecorder prepareToRecord];		
-    [soundRecorder record];
+    [audioRecorder prepareToRecord];		
+    [audioRecorder record];
     
 }
 
@@ -224,8 +224,8 @@ static const NSInteger OkButtonIndex = 1;
 - (void) stopRecording {
     NSLog(@"Recording stopped");
     
-    [soundRecorder stop];		
-    soundRecorder = nil;
+    [audioRecorder stop];		
+    audioRecorder = nil;
     
     NSError *error = nil;		
     [[AVAudioSession sharedInstance] setActive: NO error:&error];		
@@ -359,8 +359,8 @@ static const NSInteger OkButtonIndex = 1;
     [_attachmentsLoadingIndicator release];
     [_attachmentsHeaderView release];
     [_recordButton release];
-	[soundRecorder release];
-	[soundFileURL release];
+	[audioRecorder release];
+	[audioURL release];
     [super dealloc];
 }
 
