@@ -45,8 +45,12 @@
 + (void)errorWithMessage:(NSString*)message {
 	NSLog(@"Error: %@", message);
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-	[alert show];
+    [self performSelectorOnMainThread:@selector(showAlert:) withObject:alert waitUntilDone:YES];
 	[alert release];
+}
+
++ (void) showAlert:(UIAlertView*)alert {
+	[alert show];
 }
 
 #pragma mark -

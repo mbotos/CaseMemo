@@ -20,7 +20,7 @@
 
 // STEP 2 b - Load Case list using standard SOQL query string
 - (void) loadData {
-    NSString *queryString = @"Select Id, CaseNumber, Subject, Description, Attachment_Count__c From Case";
+    NSString *queryString = @"Select Id, CaseNumber, Subject, Description, Attachment_Count__c From Case limit 30";
     [[FDCServerSwitchboard switchboard] query:queryString target:self selector:@selector(queryResult:error:context:) context:nil];
 }
 
@@ -99,9 +99,9 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
 
-    // STEP 2 d - Each table cell displays the Subject of a Case
+    // STEP 2 d - Each table cell displays the Subject of a Case (fieldValue: uses API names)
 	ZKSObject *obj = [dataRows objectAtIndex:indexPath.row];
-	cell.textLabel.text = [obj fieldValue:@"Subject"];
+	cell.textLabel.text = [obj fieldValue:@"Subject"]; 
     		
     return cell;
 }
