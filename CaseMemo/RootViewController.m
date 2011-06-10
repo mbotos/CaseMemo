@@ -95,9 +95,9 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
 
-    // STEP 2 d - Each table cell displays the Subject of a Case
+    // STEP 2 d - Each table cell displays the Subject of a Case (fieldValue: uses API names)
 	ZKSObject *obj = [dataRows objectAtIndex:indexPath.row];
-	cell.textLabel.text = [obj fieldValue:@"Subject"];
+	cell.textLabel.text = [obj fieldValue:@"Subject"]; 
     		
     return cell;
 }
