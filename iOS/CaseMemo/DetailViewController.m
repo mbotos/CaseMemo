@@ -175,8 +175,6 @@ static NSString * const AudioAttachmentName = @"Audio Memo.caf";
     else if (error)
     {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        
-        [CaseMemoAppDelegate errorWithError:error];
     }
 }
 
