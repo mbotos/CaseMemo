@@ -20,7 +20,7 @@
 
 // STEP 2 b - Load Case list using standard SOQL query string
 - (void) loadData {
-    NSString *queryString = @"Select Id, CaseNumber, Subject, Description From Case";
+    NSString *queryString = @"Select Id, CaseNumber, Subject, Description From Case limit 30";
     [[FDCServerSwitchboard switchboard] query:queryString target:self selector:@selector(queryResult:error:context:) context:nil];
 }
 
