@@ -94,6 +94,8 @@
         NSLog(@"Error: %@", error);
         [CaseMemoAppDelegate errorWithError:error];
     }
+    
+    [genericPassword release];
 }
 
 #pragma mark -
@@ -116,6 +118,8 @@
         self.oAuthViewController = [[FDCOAuthViewController alloc] initWithTarget:self selector:@selector(loginOAuth:error:) clientId:kSFOAuthConsumerKey];
         self.oAuthViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     }
+    
+    [genericPassword release];
     
     self.window.rootViewController = self.splitViewController;
     [self.window makeKeyAndVisible];
