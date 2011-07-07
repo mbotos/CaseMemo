@@ -11,6 +11,7 @@
 #import "FDCOAuthViewController.h"
 #import "FDCServerSwitchboard.h"
 #import "GenericPassword.h"
+#import "ZKSforce.h"
 
 // STEP 1 a - Consumer Key from Salesforce Setup > Develop > Remote Access
 #define kSFOAuthConsumerKey @"3MVG9y6x0357HleejikYgTgKSQy7Ba8e7zCk_NwT6fye_OKUEmRjgZxgZ8OQCywvuw7WaW_g5VAJpijHWt9kC"
@@ -39,7 +40,15 @@
 }
 
 + (void)errorWithError:(NSError*)error {
-	[self errorWithMessage:[NSString stringWithFormat:@"%@", error]];
+    NSString *message;
+    
+    if ([error userInfo] && [[error userInfo] valueForKey:@"faultstring"]) {
+        message = [[error userInfo] valueForKey:@"faultstring"]; // detailed Salesforce error
+    } else {
+        message = [error localizedDescription];
+    }
+    
+	[self errorWithMessage:message];
 }
 
 + (void)errorWithMessage:(NSString*)message {
@@ -55,6 +64,16 @@
 
 #pragma mark -
 #pragma mark App
+
+- (void) didLogin {
+    // STEP 10 a - Prompt to register for push notifications
+    // Do after login so we can save device token to Salesforce 
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes: 
+	 (UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];	
+
+    // STEP 2 a - Load data after login
+    [self.rootViewController loadData];
+}
 
 // STEP 1 c - Handle OAuth login callback
 - (void)loginOAuth:(FDCOAuthViewController *)oAuthViewController error:(NSError *)error
@@ -73,8 +92,7 @@
         // STEP 3 b - Save OAuth data after login
         [self saveOAuthData: oAuthViewController];
         
-        // STEP 2 a - Load data after login
-        [self.rootViewController loadData];
+        [self didLogin];
     }
     else if (error)
     {
@@ -112,7 +130,7 @@
     if (hasOAuthToken) {
         [[FDCServerSwitchboard switchboard] setOAuthRefreshToken:genericPassword.password];        
         [[FDCServerSwitchboard switchboard] setApiUrlFromOAuthInstanceUrl:genericPassword.service];        
-        [self.rootViewController loadData];
+        [self didLogin];
     } else {
         // STEP 1 b - Show OAuth login
         self.oAuthViewController = [[FDCOAuthViewController alloc] initWithTarget:self selector:@selector(loginOAuth:error:) clientId:kSFOAuthConsumerKey];
@@ -169,6 +187,42 @@
      Save data if appropriate.
      See also applicationDidEnterBackground:.
      */
+}
+
+// STEP 10 b - On successful push notification registration, save device token for user
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // NSData contains token as <abc1 defd ...> - strip to just alphanumerics
+    NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
+    token = [token stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+
+    ZKSObject *mobileDevice = [ZKSObject withType:@"Mobile_Device__c"];
+    [mobileDevice setFieldValue:token field:@"Name"];
+    // User__c will be set automatically by Salesforce trigger
+    
+    [[FDCServerSwitchboard switchboard] create:[NSArray arrayWithObject:mobileDevice] target:self selector:@selector(createResult:error:context:) context:nil];
+}
+
+// STEP 10 c - Callback with result of MobileDevice creation in Salesforce
+- (void)createResult:(NSArray *)results error:(NSError *)error context:(id)context
+{
+    if (results && !error)
+    {
+        NSString* mobileDeviceId = [[results objectAtIndex:0] id]; 
+        if ([mobileDeviceId length] > 0) {
+            NSLog(@"Mobile Device %@ saved to Salesforce", mobileDeviceId);
+        } else {
+            NSLog(@"Duplicate Mobile Device ignored by Salesforce");
+        }
+    }
+    else if (error)
+    {
+        [CaseMemoAppDelegate errorWithError:error];
+    }
+}
+
+// STEP 10 d - Show error from unsuccessful push notification registration
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+	[CaseMemoAppDelegate errorWithError:error];
 }
 
 - (void)dealloc

@@ -11,6 +11,7 @@
 		347E3586138C196D00A98ADC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347E3585138C196D00A98ADC /* AVFoundation.framework */; };
 		348EF86313858D9500D88F34 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 348EF86213858D9500D88F34 /* MBProgressHUD.m */; };
 		348EF866138598A300D88F34 /* DetailViewAttachmentsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 348EF865138598A200D88F34 /* DetailViewAttachmentsHeader.xib */; };
+		34B16FB613C644D700000E26 /* Entitlements-Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34B16FB513C644D700000E26 /* Entitlements-Debug.plist */; };
 		34CA2DAE1382B79F00EA1420 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34CA2DAD1382B79F00EA1420 /* UIKit.framework */; };
 		34CA2DB01382B79F00EA1420 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34CA2DAF1382B79F00EA1420 /* Foundation.framework */; };
 		34CA2DB21382B79F00EA1420 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34CA2DB11382B79F00EA1420 /* CoreGraphics.framework */; };
@@ -83,6 +84,7 @@
 		348EF86113858D9500D88F34 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		348EF86213858D9500D88F34 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		348EF865138598A200D88F34 /* DetailViewAttachmentsHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewAttachmentsHeader.xib; sourceTree = "<group>"; };
+		34B16FB513C644D700000E26 /* Entitlements-Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Entitlements-Debug.plist"; sourceTree = "<group>"; };
 		34CA2DA91382B79F00EA1420 /* CaseMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaseMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34CA2DAD1382B79F00EA1420 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		34CA2DAF1382B79F00EA1420 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -294,6 +296,7 @@
 		34CA2DB41382B79F00EA1420 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				34B16FB513C644D700000E26 /* Entitlements-Debug.plist */,
 				34CA2DB51382B79F00EA1420 /* CaseMemo-Info.plist */,
 				34CA2DB61382B79F00EA1420 /* InfoPlist.strings */,
 				34CA2DB91382B79F00EA1420 /* CaseMemo-Prefix.pch */,
@@ -477,6 +480,7 @@
 				34CA2E891383022700EA1420 /* LICENSE in Resources */,
 				34CA2E8C1383024000EA1420 /* license in Resources */,
 				348EF866138598A300D88F34 /* DetailViewAttachmentsHeader.xib in Resources */,
+				34B16FB613C644D700000E26 /* Entitlements-Debug.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,6 +584,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -589,6 +594,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -598,6 +604,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
@@ -605,6 +612,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -614,6 +622,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = "CaseMemo/Entitlements-Debug.plist";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -623,7 +633,7 @@
 				INFOPLIST_FILE = "CaseMemo/CaseMemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-lxml2";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CaseMemo;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -633,6 +643,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -641,7 +652,7 @@
 				INFOPLIST_FILE = "CaseMemo/CaseMemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-lxml2";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CaseMemo;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
