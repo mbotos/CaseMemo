@@ -33,5 +33,13 @@ public with sharing class MobileDevice_Test {
 		devices[0].Synced__c = true;
 		update devices[0];
 	}
+	
+	static testMethod void deviceWithoutUserHasCurrentUser() {
+		System.runAs(users[0]) {
+			Mobile_Device__c device = new Mobile_Device__c(Name = '2');
+			insert device;
+			System.assertEquals(users[0].Id, [select User__c from Mobile_Device__c where Id = :device.Id].User__c);
+		}
+	}
 
 }
