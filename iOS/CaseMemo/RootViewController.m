@@ -42,6 +42,15 @@
     }
 }
 
+// STEP 10 g - Find Case by Id
+- (id)findCaseById:(NSString*)caseId {
+    return [self.dataRows indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        BOOL isItem = [obj fieldValue:@"Id"] == caseId;
+        stop = &isItem;
+        return isItem;
+    }];
+}
+               
 - (void)viewDidLoad
 {
     [super viewDidLoad];

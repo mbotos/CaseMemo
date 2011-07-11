@@ -26,10 +26,13 @@
 
 @property (nonatomic, retain) IBOutlet FDCOAuthViewController *oAuthViewController;
 
+@property (nonatomic, retain) NSDictionary *notificationData;
+
 + (void)error:(NSException*)exception;
 + (void)errorWithError:(NSError*)error;
 + (void)errorWithMessage:(NSString*)message;
 
 - (void) saveOAuthData: (FDCOAuthViewController *)oAuthViewController;
+- (void) showCaseInNotification;
 
 @end

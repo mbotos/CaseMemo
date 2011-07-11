@@ -18,5 +18,6 @@
 @property (nonatomic, retain) NSMutableArray *dataRows;
 
 - (void) loadData;
+- (id)findCaseById:(NSString*)caseId;
 
 @end

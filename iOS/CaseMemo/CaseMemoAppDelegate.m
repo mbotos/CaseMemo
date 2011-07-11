@@ -12,6 +12,7 @@
 #import "FDCServerSwitchboard.h"
 #import "GenericPassword.h"
 #import "ZKSforce.h"
+#import "DetailViewController.h"
 
 // STEP 1 a - Consumer Key from Salesforce Setup > Develop > Remote Access
 #define kSFOAuthConsumerKey @"3MVG9y6x0357HleejikYgTgKSQy7Ba8e7zCk_NwT6fye_OKUEmRjgZxgZ8OQCywvuw7WaW_g5VAJpijHWt9kC"
@@ -31,6 +32,8 @@
 @synthesize detailViewController=_detailViewController;
 
 @synthesize oAuthViewController=_oAuthViewController;
+
+@synthesize notificationData=_notificationData;
 
 #pragma mark -
 #pragma mark Error Handling
@@ -73,6 +76,11 @@
 
     // STEP 2 a - Load data after login
     [self.rootViewController loadData];
+    
+    // STEP 10 i - Go to Case in notification, if set
+    if (self.notificationData) {
+        [self showCaseInNotification];        
+    }
 }
 
 // STEP 1 c - Handle OAuth login callback
@@ -121,6 +129,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // STEP 10 h - Get notification
+    self.notificationData = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    
     [[FDCServerSwitchboard switchboard] setClientId:kSFOAuthConsumerKey];
     
     // STEP 3 d - Retrieve OAuth data from Keychain
@@ -189,6 +200,8 @@
      */
 }
 
+#pragma mark - Notifications
+
 // STEP 10 b - On successful push notification registration, save device token for user
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // NSData contains token as <abc1 defd ...> - strip to just alphanumerics
@@ -225,12 +238,35 @@
 	[CaseMemoAppDelegate errorWithError:error];
 }
 
+// STEP 10 e - Show notification alert if running
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    self.notificationData = userInfo;
+	
+    NSString *message = [ ( (NSDictionary*)[userInfo objectForKey:@"aps"] ) valueForKey:@"alert"];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Case Closed" message:message delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"View", nil];
+    [alert show];    
+    [alert release];
+}
+
+// STEP 10 f - Go to Case in notification
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 1) {
+        [self showCaseInNotification];
+	}
+}
+
+- (void) showCaseInNotification {
+    NSArray *caseIds = [self.notificationData objectForKey:@"caseIds"];
+    self.detailViewController.detailItem = [self.rootViewController findCaseById:[caseIds objectAtIndex:0]];
+}
+
 - (void)dealloc
 {
     [_window release];
     [_splitViewController release];
     [_rootViewController release];
     [_detailViewController release];
+    [_notificationData release];
     [super dealloc];
 }
 
