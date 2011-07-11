@@ -130,6 +130,9 @@ static NSString * const AudioAttachmentName = @"Audio Memo.caf";
 - (void) saveAudioAttachment {
     ZKSObject *attachment = [self createAudioAttachment];
     [self.attachments addObject:attachment];
+    hasAttachments = true;
+    [self.detailItem setFieldValue:[NSNumber numberWithUnsignedInt:[self.attachments count]] field:@"Attachment_Count__c"];
+    
     [self.attachmentsTable reloadData];
     
     // STEP 8 d - Create in Salesforce asynchronously
