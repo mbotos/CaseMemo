@@ -4,7 +4,13 @@
         <members>CaseAttachmentCount</members>
         <members>CaseAttachmentCount_Test</members>
         <members>EntityFactory</members>
+        <members>JSONObject</members>
         <members>MobileDevice_Test</members>
+        <members>MockPushNotificationService</members>
+        <members>PushNotificationInterface</members>
+        <members>UrbanAirship</members>
+        <members>UrbanAirship_Test</members>
+        <members>Utility</members>
         <name>ApexClass</name>
     </types>
     <types>
