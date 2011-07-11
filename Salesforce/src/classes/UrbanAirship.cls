@@ -1,29 +1,16 @@
 global class UrbanAirship implements PushNotificationInterface {
 	public static string baseUrl ='https://go.urbanairship.com/api/';
-	
-	// 2nd Opinion Development
-	//static string applicationKey = 'Sxch3aJSSoS-UZDIMLWlCw';
-	//static string applicationMasterSecret = 'WTWrnW2XSlSoQiTevNSF1Q';
-		
-	// Sunovion Development
-	//static string applicationKey = '_J3Z8DO2RCiKc1BdL32wKQ';
-	//static string applicationMasterSecret = '1tXDG78XSwe0GaWV3cCLvQ';
-		
-	// 2nd Opinion Production
-	//static string applicationKey = 'GRxXB7BDRS-GB7lbUrW7XQ';
-	//static string applicationMasterSecret = '6Rcy2PC9Seqo3bZy6eoXMw';
-		
-	// Sunovion Production
-	static string applicationKey = 'SOutEx1jT4yMbO-wwO7OVg';
-	static string applicationMasterSecret = 'XNU1wrhxTEO3FljeM7KVqA';	
-	
+	public static string applicationName;	
 	public static list<string> queuedNotifications = new list<string>();
 	
-	public static string createNotificationBody(string deviceToken, string message, integer badge, string json) {
-		System.debug('sendPushNotification input json ' + json);
+	public UrbanAirship(string appName) {
+		applicationName = appName;
+	}
+	
+	public static string createNotificationBody(string deviceToken, string message, integer badge, JSONObject userInfo) {
 		JSONObject payload;
-		if (json != null) {
-			payload = new JSONObject(json);
+		if (userInfo != null) {
+			payload = userInfo;
 		} else {
 			payload = new JSONObject();
 		}
@@ -44,7 +31,13 @@ global class UrbanAirship implements PushNotificationInterface {
 	    HttpRequest req = new HttpRequest();
 	    req.setEndpoint(baseUrl + path);
 	    req.setMethod(method);
-	    req.setHeader('Authorization', 'BASIC ' + EncodingUtil.base64Encode(Blob.valueOf(applicationKey + ':' + applicationMasterSecret)));
+	    
+	    Push_Notification_Setting__c setting = [select Key__c, Master_Secret__c from Push_Notification_Setting__c where Name = :applicationName];
+	    if (setting == null) {
+	    	System.debug(LoggingLevel.ERROR, 'No Push Notification Setting found for ' + applicationName);
+	    } else {
+	    	req.setHeader('Authorization', 'BASIC ' + EncodingUtil.base64Encode(Blob.valueOf(setting.Key__c + ':' + setting.Master_Secret__c)));
+	    }
 	    
 	    if (body != null) {
 		    req.setHeader('Content-Length', String.valueOf(body.length()));
@@ -92,8 +85,8 @@ global class UrbanAirship implements PushNotificationInterface {
 		}
 	}
 
-	public static void sendPushNotification(string deviceToken, string message, integer badge, string json) {		
-		sendPushNotification(createNotificationBody(deviceToken, message, badge, json));
+	public static void sendPushNotification(string deviceToken, string message, integer badge, JSONObject userInfo) {		
+		sendPushNotification(createNotificationBody(deviceToken, message, badge, userInfo));
 	}
 	
 	public static void sendPushNotification(string deviceToken, string message, integer badge) {
@@ -113,8 +106,8 @@ global class UrbanAirship implements PushNotificationInterface {
 		}
 	}
 
-	public static void queuePushNotification(string deviceToken, string message, integer badge, string json) {		
-		queuedNotifications.add(createNotificationBody(deviceToken, message, badge, json));
+	public static void queuePushNotification(string deviceToken, string message, integer badge, JSONObject userInfo) {		
+		queuedNotifications.add(createNotificationBody(deviceToken, message, badge, userInfo));
 	}
 	
 	

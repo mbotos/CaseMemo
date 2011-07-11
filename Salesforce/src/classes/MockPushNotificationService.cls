@@ -1,7 +1,7 @@
 public with sharing class MockPushNotificationService implements PushNotificationInterface {
 	public static list<string> devicesRegistered = new list<string>();
-	public static list<string> sentNotifications = new list<string>();
-	public static list<string> queuedNotifications = new list<string>();
+	public static list<PushNotification> sentNotifications = new list<PushNotification>();
+	public static list<PushNotification> queuedNotifications = new list<PushNotification>();
 
 	public integer createDevice(string deviceToken) {
 		devicesRegistered.add(deviceToken);
@@ -12,17 +12,17 @@ public with sharing class MockPushNotificationService implements PushNotificatio
 	}
 	
 	public void sendPushNotification(string body) {
-		sentNotifications.add(body);		
+		sentNotifications.add(new PushNotification(null, body, null, null));		
 	}
 
 	public void sendQueuedNotifications() {
-		string body = '[' + Utility.joinStrings(queuedNotifications, ',') + ']';
-		
-		sentNotifications.add(body);
-		queuedNotifications.clear();
+		if (queuedNotifications.size() > 0) {
+			sentNotifications.add(new PushNotification(queuedNotifications.clone())); 
+			queuedNotifications.clear();
+		}
 	}
 
-	public void queuePushNotification(string deviceToken, string message, integer badge, string json) {		
-		queuedNotifications.add(deviceToken + message + badge + json);
+	public void queuePushNotification(string deviceToken, string message, integer badge, JSONObject userInfo) {		
+		queuedNotifications.add(new PushNotification(deviceToken, message, badge, userInfo));
 	}
 }

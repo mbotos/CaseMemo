@@ -3,10 +3,13 @@
     <types>
         <members>CaseAttachmentCount</members>
         <members>CaseAttachmentCount_Test</members>
+        <members>CasePushNotification</members>
+        <members>CasePushNotification_Test</members>
         <members>EntityFactory</members>
         <members>JSONObject</members>
         <members>MobileDevice_Test</members>
         <members>MockPushNotificationService</members>
+        <members>PushNotification</members>
         <members>PushNotificationInterface</members>
         <members>UrbanAirship</members>
         <members>UrbanAirship_Test</members>
@@ -26,6 +29,7 @@
         <name>CustomApplication</name>
     </types>
     <types>
+        <members>*</members>
         <members>Case</members>
         <name>CustomObject</name>
     </types>

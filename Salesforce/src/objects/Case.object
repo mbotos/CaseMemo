@@ -172,6 +172,16 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>Response_Viewed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>True if owner has viewed closed response</description>
+        <externalId>false</externalId>
+        <label>Response Viewed</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>SLAViolation__c</fullName>
         <externalId>false</externalId>
         <label>SLA Violation</label>

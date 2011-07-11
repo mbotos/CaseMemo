@@ -14,6 +14,14 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CasePushNotification</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CasePushNotification_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>EntityFactory</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -152,6 +160,11 @@
     </fieldLevelSecurities>
     <fieldLevelSecurities>
         <editable>true</editable>
+        <field>Case.Response_Viewed__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
         <field>Case.SLAViolation__c</field>
         <hidden>false</hidden>
     </fieldLevelSecurities>
@@ -185,6 +198,16 @@
         <field>Case.Type</field>
         <hidden>false</hidden>
     </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Mobile_Device__c.Synced__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Mobile_Device__c.User__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
     <layoutAssignments>
         <layout>Mobile_Device__c-Mobile Device Layout</layout>
     </layoutAssignments>
@@ -195,6 +218,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Case</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Mobile_Device__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <tabVisibilities>
