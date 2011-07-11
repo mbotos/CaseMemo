@@ -118,7 +118,7 @@ static NSString * const AudioAttachmentName = @"Audio Memo.caf";
     [attachment setFieldValue:[self.detailItem fieldValue:@"Id"] field:@"ParentId"];
     
     // Attachment body must be base64 encoded; use method provided by NSData+Base64 category
-    NSData *soundData = [NSData dataWithContentsOfURL:soundFileURL];
+    NSData *soundData = [NSData dataWithContentsOfURL:audioURL];
     [attachment setFieldValue:[soundData base64EncodedString] field:@"Body"];
     
     return attachment;
