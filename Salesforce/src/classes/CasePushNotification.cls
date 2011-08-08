@@ -1,21 +1,39 @@
 public with sharing class CasePushNotification {
 	public static PushNotificationInterface pushNotificationService = new UrbanAirship('Case Memo');
 	
-	public static map<Id, integer> newResponseCountByOwnerId(set<Id> ownerIds) {
-		map<Id, integer> newResponseCountByOwnerId = new map<Id, integer>();
+	public static map<Id, integer> newResponseCountByUserId(set<Id> ownerIds) {
+		map<Id, integer> newResponseCountByUserId = new map<Id, integer>();
+		map<Id, set<Id>> casesByUserId = new map<Id, set<Id>>();
+		set<Id> caseIds = new set<Id>();
 		
-		for (AggregateResult result : [select OwnerId, count(Id) from Case where OwnerId in :ownerIds and IsClosed = true and Response_Viewed__c = false group by OwnerId]) {
-			newResponseCountByOwnerId.put((Id)result.get('OwnerId'), (integer)result.get('expr0'));	
+		for (Attachment attachment : [select OwnerId, ParentId from Attachment where OwnerId in :ownerIds]) {
+			if (!casesByUserId.containsKey(attachment.OwnerId)) {
+				casesByUserId.put(attachment.OwnerId, new set<Id>());
+			}
+			
+			casesByUserId.get(attachment.OwnerId).add(attachment.ParentId);
+			caseIds.add(attachment.ParentId);
+			newResponseCountByUserId.put(attachment.OwnerId, 0);
 		}
 		
-		system.debug(newResponseCountByOwnerId); 
+		for (Case c : [select Id from Case where Id in :caseIds and IsClosed = true and Response_Viewed__c = false]) {
+			for (Id userId : casesByUserId.keySet()) {
+				if (casesByUserId.get(userId).contains(c.Id)) {
+					newResponseCountByUserId.put(userId, newResponseCountByUserId.get(userId) + 1);
+				}
+			}
+		}
+		
+		system.debug(newResponseCountByUserId); 
 	
-		return newResponseCountByOwnerId;
+		return newResponseCountByUserId;
 	}
 
 
 	@future(callout=true)
 	public static void sendClosedNotification(set<Id> closedCaseIds) {	
+		System.debug('sendClosedNotification ' + closedCaseIds);
+		
 		map<Id, list<Id>> casesByUserId = new map<Id, list<Id>>();
 		
 		for (Attachment attachment : [select OwnerId, ParentId from Attachment where ParentId in :closedCaseIds]) {
@@ -26,7 +44,7 @@ public with sharing class CasePushNotification {
 			casesByUserId.get(attachment.OwnerId).add(attachment.ParentId);
 		}
 	
-		map<Id, integer> newResponseCountByOwnerId = newResponseCountByOwnerId(casesByUserId.keySet());
+		map<Id, integer> newResponseCountByUserId = newResponseCountByUserId(casesByUserId.keySet());
 		
 		for (Mobile_Device__c d : [select Name, User__c from Mobile_Device__c where User__c in :casesByUserId.keySet()]) {
 			system.debug('Future push notification to User ' + d.User__c + ' on device ' + d.Name);
@@ -45,7 +63,7 @@ public with sharing class CasePushNotification {
 			string message = cases.size() == 1 ? 'Your case has been closed' : 'You have ' + cases.size() + ' closed cases';
 			System.debug(message);
 			
-			pushNotificationService.queuePushNotification(d.Name, message, newResponseCountByOwnerId.get(d.User__c), caseInfo);
+			pushNotificationService.queuePushNotification(d.Name, message, newResponseCountByUserId.get(d.User__c), caseInfo);
 		}
 		
 		pushNotificationService.sendQueuedNotifications();

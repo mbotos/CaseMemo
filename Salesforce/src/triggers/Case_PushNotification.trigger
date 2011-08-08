@@ -9,5 +9,7 @@ trigger Case_PushNotification on Case (after insert, after update) {
 		}
 	}
 
-	CasePushNotification.sendClosedNotification(closedCases);
+	if (closedCases.size() > 0) {
+		CasePushNotification.sendClosedNotification(closedCases);
+	}
 }

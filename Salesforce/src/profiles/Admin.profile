@@ -38,6 +38,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>PushNotification</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>PushNotificationInterface</apexClass>
         <enabled>true</enabled>
     </classAccesses>

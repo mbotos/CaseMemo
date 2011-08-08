@@ -15,15 +15,19 @@ private class CasePushNotification_Test {
 		}
 		insert devices;
 
-		newCase = new Case(Status = 'Closed');
+		newCase = new Case();
 		insert newCase;
 		
 		System.runAs(user) {
-			Test.startTest();
 			Attachment attachment = new Attachment(ParentId = newCase.Id, Name = 'Test Attachment.caf', Body = Blob.valueOf('test'));
 			insert attachment;
-			Test.stopTest();
 		}
+		
+		newCase.Status = 'Closed';
+
+		Test.startTest();
+		update newCase;
+		Test.stopTest();
 	}
 
     
@@ -32,7 +36,9 @@ private class CasePushNotification_Test {
     	
     	System.assertEquals(1, MockPushNotificationService.sentNotifications.size());
     	
-    	PushNotification notification = MockPushNotificationService.sentNotifications[0];
+    	PushNotification notification = MockPushNotificationService.sentNotifications[0].notifications[0];
+    	System.debug('notification ' + notification);
     	System.assertEquals(1, notification.badge);
+    	//System.assertEquals(newCase.Id, notification.userInfo.get('caseIds'));
     }
 }
