@@ -14,6 +14,7 @@
 #import "CaseMemoAppDelegate.h"
 #import "MBProgressHUD.h"
 #import "NSData+Base64.h"
+#import "DetailTable.h"
 
 static const NSInteger OkButtonIndex = 1;
 static NSString * const AudioAttachmentName = @"Audio Memo.caf";
@@ -31,9 +32,9 @@ static NSString * const AudioAttachmentName = @"Audio Memo.caf";
 @synthesize detailItem=_detailItem;
 @synthesize attachments=_attachments;
 
-@synthesize numberLabel = _numberLabel;
-@synthesize subjectLabel = _subjectLabel;
-@synthesize descriptionLabel = _descriptionLabel;
+@synthesize detailTable = _detailTable;
+@synthesize detailTableData = _detailTableData;
+
 @synthesize attachmentsTable = _attachmentsTable;
 @synthesize attachmentsLoadingIndicator = _attachmentsLoadingIndicator;
 @synthesize attachmentsHeaderView = _attachmentsHeaderView;
@@ -50,6 +51,10 @@ static NSString * const AudioAttachmentName = @"Audio Memo.caf";
     if (_detailItem != newDetailItem) {
         [_detailItem release];
         _detailItem = [newDetailItem retain];
+        
+        self.detailTableData = [[DetailTable alloc] init];
+        self.detailTable.dataSource = self.detailTableData;
+        [(DetailTable*)self.detailTable.dataSource setDetailItem:newDetailItem];
         
         [self.attachments removeAllObjects];
         
@@ -97,11 +102,7 @@ static NSString * const AudioAttachmentName = @"Audio Memo.caf";
 
 - (void)configureView
 {    
-    // STEP 4 b - Assign data to layout
-    self.numberLabel.text = [NSString stringWithFormat:@"Case Number %@", [self.detailItem fieldValue:@"CaseNumber"]];
-    self.subjectLabel.text = [self.detailItem fieldValue:@"Subject"];
-    self.descriptionLabel.text = [self.detailItem fieldValue:@"Description"];
-
+    [self.detailTable reloadData];
     [self.attachmentsTable reloadData];
     [self.view addSubview:self.recordButton];
 
@@ -348,71 +349,6 @@ static NSString * const AudioAttachmentName = @"Audio Memo.caf";
     self.popoverController = nil;
 }
 
-#pragma mark - View events
-
- // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    // STEP 6 d - Load Attachments header with loading indicator from DetailViewAttachmentsHeader.xib
-    [[NSBundle mainBundle] loadNibNamed:@"DetailViewAttachmentsHeader" owner:self options:nil];
-    
-    self.numberLabel.text = nil;
-    self.subjectLabel.text = nil;
-    self.descriptionLabel.text = nil;
-    
-    self.attachmentsTable.backgroundView = [[[UIImageView alloc] init] autorelease];
-    
-    // prevent bad resizing and clipping when switching to landscape
-    self.attachmentsTable.autoresizingMask = UIViewAutoresizingNone;
-    
-    [self.recordButton removeFromSuperview];
-    
-    // STEP 6 a - Show loading indicator while waiting for query callback
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-}
-
-- (void)viewDidUnload
-{
-    [self setNumberLabel:nil];
-    [self setSubjectLabel:nil];
-    [self setDescriptionLabel:nil];
-    [self setAttachmentsTable:nil];
-    [self setAttachmentsHeaderView:nil];
-    [self setRecordButton:nil];
-	[super viewDidUnload];
-
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-	self.popoverController = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    self.subjectLabel.numberOfLines = 2;
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
-}
-
 // STEP 5 e - Render attachment table cells
 
 #pragma mark - Attachments table data
@@ -457,12 +393,73 @@ static NSString * const AudioAttachmentName = @"Audio Memo.caf";
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZKSObject *attachment = [self.attachments objectAtIndex:indexPath.row];
     audioIndexPath = indexPath; // save indexPath for deselect when done playing
-
+    
     MBProgressHUD *progressHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     progressHUD.labelText = @"Loading audio";
     
     [self loadAudio:attachment];
 }
+
+#pragma mark - View events
+
+ // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    // STEP 6 d - Load Attachments header with loading indicator from DetailViewAttachmentsHeader.xib
+    [[NSBundle mainBundle] loadNibNamed:@"DetailViewAttachmentsHeader" owner:self options:nil];
+    
+    self.attachmentsTable.backgroundView = [[[UIImageView alloc] init] autorelease];
+    self.detailTable.backgroundView = [[[UIImageView alloc] init] autorelease];
+    
+    // prevent bad resizing and clipping when switching to landscape
+    self.attachmentsTable.autoresizingMask = UIViewAutoresizingNone;
+    self.detailTable.autoresizingMask = UIViewAutoresizingNone;
+    
+    [self.recordButton removeFromSuperview];
+    
+    // STEP 6 a - Show loading indicator while waiting for query callback
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+}
+
+- (void)viewDidUnload
+{
+    [self setAttachmentsTable:nil];
+    [self setAttachmentsHeaderView:nil];
+    [self setRecordButton:nil];
+    [self setDetailTable:nil];
+	[super viewDidUnload];
+
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+	self.popoverController = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    return YES;
+}
+
 
 #pragma mark - Memory management
 
@@ -488,6 +485,8 @@ static NSString * const AudioAttachmentName = @"Audio Memo.caf";
     [_recordButton release];
 	[audioRecorder release];
 	[audioURL release];
+    [_detailTable release];
+    [_detailTableData release];
     [super dealloc];
 }
 

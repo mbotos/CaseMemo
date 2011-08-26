@@ -75,6 +75,7 @@
 		34CA2E891383022700EA1420 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 34CA2E801383022700EA1420 /* LICENSE */; };
 		34CA2E8A1383022700EA1420 /* Password.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CA2E821383022700EA1420 /* Password.m */; };
 		34CA2E8C1383024000EA1420 /* license in Resources */ = {isa = PBXBuildFile; fileRef = 34CA2E8B1383024000EA1420 /* license */; };
+		34CEDF651408154400A72B9C /* DetailTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CEDF641408154400A72B9C /* DetailTable.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -207,6 +208,8 @@
 		34CA2E811383022700EA1420 /* Password.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Password.h; path = ObjectiveKeychain/Password.h; sourceTree = "<group>"; };
 		34CA2E821383022700EA1420 /* Password.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Password.m; path = ObjectiveKeychain/Password.m; sourceTree = "<group>"; };
 		34CA2E8B1383024000EA1420 /* license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license; sourceTree = "<group>"; };
+		34CEDF631408154400A72B9C /* DetailTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTable.h; sourceTree = "<group>"; };
+		34CEDF641408154400A72B9C /* DetailTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTable.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,6 +249,8 @@
 		34CA2D9E1382B79F00EA1420 = {
 			isa = PBXGroup;
 			children = (
+				34CEDF631408154400A72B9C /* DetailTable.h */,
+				34CEDF641408154400A72B9C /* DetailTable.m */,
 				34CA2DB31382B79F00EA1420 /* CaseMemo */,
 				34CA2DAC1382B79F00EA1420 /* Frameworks */,
 				34CA2DAA1382B79F00EA1420 /* Products */,
@@ -547,6 +552,7 @@
 				34CA2E8A1383022700EA1420 /* Password.m in Sources */,
 				348EF86313858D9500D88F34 /* MBProgressHUD.m in Sources */,
 				340B58C6138C3DA1007C5327 /* NSData+Base64.m in Sources */,
+				34CEDF651408154400A72B9C /* DetailTable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

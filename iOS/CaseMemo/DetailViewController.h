@@ -9,6 +9,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 #import "ZKSforce.h"
+#import "DetailTable.h"
 
 @interface DetailViewController : UIViewController <
     UIPopoverControllerDelegate, UISplitViewControllerDelegate, 
@@ -20,6 +21,7 @@
     UILabel *_numberLabel;
     UILabel *_subjectLabel;
     UILabel *_descriptionLabel;
+    UITableView *_detailTable;
     UITableView *_attachmentsTable;
     UIView *_attachmentsHeaderView;
 
@@ -42,9 +44,8 @@
 @property (nonatomic, retain) NSMutableArray *attachments;
 
 // STEP 4 a - Create layout in DetailView.xib and link outlets
-@property (nonatomic, retain) IBOutlet UILabel *numberLabel;
-@property (nonatomic, retain) IBOutlet UILabel *subjectLabel;
-@property (nonatomic, retain) IBOutlet UILabel *descriptionLabel;
+@property (nonatomic, retain) IBOutlet UITableView *detailTable;
+@property (nonatomic, retain) DetailTable *detailTableData;
 
 // STEP 5 b - Create attachments table in DetailView.xib and link outlet and delegates
 @property (nonatomic, retain) IBOutlet UITableView *attachmentsTable;
