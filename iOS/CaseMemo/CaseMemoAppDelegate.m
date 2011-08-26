@@ -71,9 +71,11 @@
 - (void) didLogin {
     // STEP 10 a - Prompt to register for push notifications
     // Do after login so we can save device token to Salesforce 
+#if !TARGET_IPHONE_SIMULATOR
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes: 
 	 (UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];	
-
+#endif
+    
     // STEP 2 a - Load data after login
     [self.rootViewController loadData];
     
@@ -125,7 +127,7 @@
 }
 
 #pragma mark -
-#pragma AppDelegate
+#pragma mark AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
