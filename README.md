@@ -1,17 +1,16 @@
 Introduction
 ------------
 
-CaseMemo for iPad is an iOS application that showcases Salesforce integration using OAuth, audio Attachments, and push notifications.
+CaseMemo for iPad is an iOS application that showcases Salesforce.com integration using OAuth, audio Attachments, and push notifications. 
 
-I'll be using it in my Dreamforce 11 presentation, [Beyond the Force.com Toolkit for iOS](https://dreamevent.my.salesforce.com/a093000000BtXA1) (Dreamforce login required).
+It was presented by Matthew Botos in [Beyond the Force.com Toolkit for iOS](http://www.slideshare.net/matthewbotos/beyond-the-forcecom-toolkit-for-ios-dreamforce-2011) at Dreamforce 2011. The Speaker Notes in the slides contain additional details and links.
 
 
 Contents
 --------
 
-iOS - iPad app  
-
-Salesforce - Salesforce code and configuration, see [How To Use Github and the Force.com IDE](http://blog.sforce.com/sforce/2011/04/how-to-use-git-github-force-com-ide-open-source-labs-apps.html)
+* iOS - iPad app  
+* Salesforce - Salesforce code and configuration, see [How To Use Github and the Force.com IDE](http://blog.sforce.com/sforce/2011/04/how-to-use-git-github-force-com-ide-open-source-labs-apps.html)
 
 The iOS code is commented in steps; searching for "STEP 1" will list the relevant comments. 
 Search results are in line-number order, not alphabetical - you may need to jump around to follow them in a logical order.   
