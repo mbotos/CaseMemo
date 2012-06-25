@@ -10,7 +10,13 @@ Contents
 --------
 
 * iOS - iPad app  
-* Salesforce - Salesforce code and configuration, see [How To Use Github and the Force.com IDE](http://blog.sforce.com/sforce/2011/04/how-to-use-git-github-force-com-ide-open-source-labs-apps.html)
+* Salesforce - Salesforce code and configuration
+
+To setup and deploy the Salesforce project in Eclipse:
+# File > Workspace > Other > Browse to the CaseMemo directory you cloned from Git
+# Window > Open Perspective > Force.com > Force.com
+# File > New Force.com Project > Enter credentials > None 
+# Right-click the src node of the file tree > Force.com > Deploy
 
 The iOS code is commented in steps; searching for "STEP 1" will list the relevant comments. 
 Search results are in line-number order, not alphabetical - you may need to jump around to follow them in a logical order.   
