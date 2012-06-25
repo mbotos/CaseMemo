@@ -12,7 +12,8 @@ Contents
 * iOS - iPad app  
 * Salesforce - Salesforce code and configuration
 
-To setup and deploy the Salesforce project in Eclipse:
+To setup and deploy the Salesforce project in Eclipse:     
+
 1. File > Workspace > Other > Browse to the CaseMemo directory you cloned from Git
 2. Window > Open Perspective > Force.com > Force.com
 3. File > New Force.com Project > Enter credentials > None 
