@@ -3,16 +3,18 @@ Introduction
 
 CaseMemo for iPad is an iOS application that showcases Salesforce.com integration using OAuth, audio Attachments, and push notifications. 
 
-Matthew Botos presented a walkthrough of building the app in [Beyond the Force.com Toolkit for iOS](http://www.slideshare.net/matthewbotos/beyond-the-forcecom-toolkit-for-ios-dreamforce-2011) at Dreamforce 2011. The Speaker Notes in the slides contain additional details and links. You can also [watch the 51-minute video](http://www.youtube.com/watch?v=PntLl4mWBX4).
+[Matthew Botos](http://linkedin.com/in/mbotos) presented a walkthrough of building the app in [Beyond the Force.com Toolkit for iOS](http://www.slideshare.net/matthewbotos/beyond-the-forcecom-toolkit-for-ios-dreamforce-2011) at Dreamforce 2011. The Speaker Notes in the slides contain additional details and links. You can also [watch the 51-minute video](http://www.youtube.com/watch?v=PntLl4mWBX4).
 
 
 Contents
 --------
 
-* iOS - iPad app  
-* Salesforce - Salesforce code and configuration
+The top-level directory contains:     
 
-To setup and deploy the Salesforce project in Eclipse:     
+* iOS - iPad app  
+* Salesforce - Salesforce.com code and configuration
+
+To setup and deploy the Salesforce project in Eclipse to a [free developer org](http://www.developerforce.com/events/regular/registration.php?d=70130000000EjHb):     
 
 1. File > Workspace > Other > Browse to the CaseMemo directory you cloned from Git
 2. Window > Open Perspective > Force.com > Force.com
