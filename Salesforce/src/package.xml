@@ -17,11 +17,9 @@
         <name>ApexClass</name>
     </types>
     <types>
-        <members>*</members>
-        <name>ApexComponent</name>
-    </types>
-    <types>
-        <members>*</members>
+        <members>Attachment_CaseCount</members>
+        <members>Case_PushNotification</members>
+        <members>MobileDevice</members>
         <name>ApexTrigger</name>
     </types>
     <types>
@@ -29,8 +27,9 @@
         <name>CustomApplication</name>
     </types>
     <types>
-        <members>*</members>
         <members>Case</members>
+        <members>Mobile_Device__c</members>
+        <members>Push_Notification_Setting__c</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -46,9 +45,5 @@
         <members>CaseMemo iPad User</members>
         <name>Profile</name>
     </types>
-    <types>
-        <members>*</members>
-        <name>StaticResource</name>
-    </types>
-    <version>20.0</version>
+    <version>23.0</version>
 </Package>

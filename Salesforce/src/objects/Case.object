@@ -3,7 +3,6 @@
     <enableFeeds>true</enableFeeds>
     <fields>
         <fullName>Attachment_Count__c</fullName>
-        <defaultValue>0</defaultValue>
         <externalId>false</externalId>
         <label>Attachment Count</label>
         <precision>18</precision>
@@ -174,7 +173,6 @@
     <fields>
         <fullName>Response_Viewed__c</fullName>
         <defaultValue>false</defaultValue>
-        <description>True if owner has viewed closed response</description>
         <externalId>false</externalId>
         <label>Response Viewed</label>
         <trackFeedHistory>false</trackFeedHistory>
@@ -282,24 +280,6 @@
         <label>All Open Cases</label>
     </listViews>
     <listViews>
-        <fullName>InternationalEscalations</fullName>
-        <filterScope>Queue</filterScope>
-        <label>International - Escalations</label>
-        <queue>International - Escalations</queue>
-    </listViews>
-    <listViews>
-        <fullName>InternationalPlatinumGold</fullName>
-        <filterScope>Queue</filterScope>
-        <label>International - Platinum/Gold</label>
-        <queue>International - Platinum/Gold</queue>
-    </listViews>
-    <listViews>
-        <fullName>InternationalSilverBronze</fullName>
-        <filterScope>Queue</filterScope>
-        <label>International - Silver/Bronze</label>
-        <queue>International - Silver/Bronze</queue>
-    </listViews>
-    <listViews>
         <fullName>MyCases</fullName>
         <filterScope>Mine</filterScope>
         <label>My Cases</label>
@@ -313,30 +293,6 @@
             <value>0</value>
         </filters>
         <label>My Open Cases</label>
-    </listViews>
-    <listViews>
-        <fullName>PartnerRelations</fullName>
-        <filterScope>Queue</filterScope>
-        <label>Partner Relations</label>
-        <queue>Partner Relations</queue>
-    </listViews>
-    <listViews>
-        <fullName>USEscalations</fullName>
-        <filterScope>Queue</filterScope>
-        <label>US - Escalations</label>
-        <queue>US - Escalations</queue>
-    </listViews>
-    <listViews>
-        <fullName>USPlatinumGold</fullName>
-        <filterScope>Queue</filterScope>
-        <label>US - Platinum/Gold</label>
-        <queue>US - Platinum/Gold</queue>
-    </listViews>
-    <listViews>
-        <fullName>USSilverBronze</fullName>
-        <filterScope>Queue</filterScope>
-        <label>US - Silver/Bronze</label>
-        <queue>US - Silver/Bronze</queue>
     </listViews>
     <webLinks>
         <fullName>UpsellCrosssellOpportunity</fullName>

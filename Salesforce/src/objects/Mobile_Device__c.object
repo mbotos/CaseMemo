@@ -47,10 +47,12 @@
     </fields>
     <fields>
         <fullName>User__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>User</label>
         <referenceTo>User</referenceTo>
         <relationshipName>Mobile_Devices</relationshipName>
+        <required>false</required>
         <type>Lookup</type>
     </fields>
     <label>Mobile Device</label>

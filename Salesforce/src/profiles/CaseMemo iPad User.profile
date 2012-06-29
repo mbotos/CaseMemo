@@ -57,161 +57,141 @@
         <apexClass>Utility</apexClass>
         <enabled>false</enabled>
     </classAccesses>
-    <fieldLevelSecurities>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.AccountId</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.AssetId</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Attachment_Count__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.BusinessHoursId</field>
-        <hidden>true</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.ClosedDate</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.ClosedOnCreate</field>
-        <hidden>true</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.ContactId</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Description</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.EngineeringReqNumber__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.IsClosedOnCreate</field>
-        <hidden>true</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.IsEscalated</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>false</editable>
-        <field>Case.IsSelfClosed</field>
-        <hidden>true</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>false</editable>
-        <field>Case.IsSelfServiceClosed</field>
-        <hidden>true</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>false</editable>
-        <field>Case.IsVisibleInCss</field>
-        <hidden>true</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>false</editable>
-        <field>Case.IsVisibleInSelfService</field>
-        <hidden>true</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Origin</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.ParentId</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.PotentialLiability__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Priority</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Product__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Reason</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Response_Viewed__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.SLAViolation__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Subject</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.SuppliedCompany</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.SuppliedEmail</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.SuppliedName</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.SuppliedPhone</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Type</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Mobile_Device__c.Synced__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Mobile_Device__c.User__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
+        <readable>true</readable>
+    </fieldPermissions>
     <layoutAssignments>
         <layout>Mobile_Device__c-Mobile Device Layout</layout>
     </layoutAssignments>
