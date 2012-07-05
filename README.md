@@ -18,7 +18,7 @@ To setup and deploy the Salesforce project in Eclipse to a [free developer org](
 
 1. File > Workspace > Other > Browse to the CaseMemo directory you cloned from Git
 2. Window > Open Perspective > Force.com > Force.com
-3. File > New Force.com Project > Enter credentials > None 
+3. File > New Force.com Project > Name "Salesforce" > Enter credentials > None 
 4. Right-click the src node of the file tree > Force.com > Save to Server > Yes
 
 The iOS code is commented in steps; searching for "STEP 1" will list the relevant comments. 
