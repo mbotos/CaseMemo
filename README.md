@@ -14,7 +14,7 @@ The top-level directory contains:
 * iOS - iPad app  
 * Salesforce - Salesforce.com code and configuration
 
-To setup and deploy the Salesforce project in Eclipse to a [free developer org](http://www.developerforce.com/events/regular/registration.php?d=70130000000EjHb):     
+To setup and deploy the Salesforce project in Eclipse to a [free developer org](http://www.developerforce.com/events/regular/registration.php?d=70130000000EjHb), [update to the latest Force.com IDE](http://wiki.developerforce.com/page/Force.com_IDE) or Eclipse plugin and follow these steps:     
 
 1. File > Workspace > Other > Browse to the CaseMemo directory you cloned from Git
 2. Window > Open Perspective > Force.com > Force.com
