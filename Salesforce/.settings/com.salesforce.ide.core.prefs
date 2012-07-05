@@ -1,4 +1,4 @@
-#Mon Jun 25 09:08:44 EDT 2012
+#Thu Jul 05 11:21:57 EDT 2012
 ExecuteAnonymousApex_code=Debug
 ExecuteAnonymousApex_profiling=Info
 ExecuteAnonymousCallout=Info
@@ -12,13 +12,13 @@ RunTestDb=Info
 RunTestValidation=Info
 RunTestWorkflow=Info
 eclipse.preferences.version=1
-endpointApiVersion=23.0
+endpointApiVersion=25.0
 endpointEnvironment=Production/Developer Edition
 endpointServer=www.salesforce.com
 httpsProtocol=true
-ideVersion=23.0
+ideVersion=25.0
 keependpoint=false
-metadataFormatVersion=23.0
+metadataFormatVersion=25.0
 namespacePrefix=
 packageName=unpackaged
 readTimeout=400
